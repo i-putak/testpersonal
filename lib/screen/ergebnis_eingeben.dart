@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:testpersonal/main.dart';
+import 'package:testpersonal/screen/retesting.dart';
 
 class ErgebnisEingeben extends StatefulWidget {
   const ErgebnisEingeben({Key? key}) : super(key: key);
@@ -199,7 +200,16 @@ class _ErgebnisUngueltigState extends State<ErgebnisUngueltig> {
                   ),
                 ),
                 //disabeln kann man wenn hier null steht
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                        child: const Retesting(),
+                        type: PageTransitionType.leftToRight),
+                        (route) => false,
+                    // )
+                  );
+                },
                 child: const Text('Bestätigen'),
               ),
               const SizedBox(height: 30),
