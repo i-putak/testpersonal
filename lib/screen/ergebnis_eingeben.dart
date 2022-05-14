@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:testpersonal/main.dart';
 
 class ErgebnisEingeben extends StatefulWidget {
   const ErgebnisEingeben({Key? key}) : super(key: key);
@@ -370,7 +371,16 @@ class _ErgebnisNegativState extends State<ErgebnisNegativ> {
                   ),
                 ),
                 //disabeln kann man wenn hier null steht
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                        child: const NegativeAnzeigen(),
+                        type: PageTransitionType.leftToRight),
+                        (route) => false,
+                    // )
+                  );
+                },
                 child: const Text('Bestätigen'),
               ),
               const SizedBox(height: 30),
@@ -429,7 +439,7 @@ class _NegativeAnzeigenState extends State<NegativeAnzeigen> {
               Container(
                 margin: const EdgeInsets.all(10.0),
                 color: Colors.black,
-                width: 900.0,
+                width: 600.0,
                 height: 100.0,
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -440,19 +450,61 @@ class _NegativeAnzeigenState extends State<NegativeAnzeigen> {
                         .headline4!
                         .copyWith(color: Colors.white)),
               ),
-              const SizedBox(height: 120),
+              const SizedBox(height: 50),
               Container(
                 margin: const EdgeInsets.all(10.0),
                 color: Colors.black,
-                width: 900.0,
-                height: 100.0,
-                alignment: Alignment.topLeft,
-                child: Text("eNAT-ID: 1234 n\ eNAT-ID: 2345 n\ eNAT-ID: 3456",
+                width: 250.0,
+                height: 250.0,
+                alignment: Alignment.centerLeft,
+                child: Text("eNAT-ID: 1234\neNAT-ID: 2345\neNAT-ID: 3456",
                     style: Theme
                         .of(context)
                         .textTheme
                         .headline4!
                         .copyWith(color: Colors.white)),
+              ),
+              const SizedBox(height: 30),
+              Container(
+                margin: const EdgeInsets.all(10.0),
+                color: Colors.black,
+                width: 600.0,
+                height: 70.0,
+                alignment: Alignment.topLeft,
+                child: Text("Dies eNATs dürfen Sie jetzt entsorgen.",
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: Colors.white)),
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(900, 100),
+                  maximumSize: const Size(900, 100),
+                  primary: Colors.lightBlueAccent,
+                  onPrimary: Colors.white,
+                  shape : RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
+                  textStyle: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold
+                  ),
+                ),
+                //disabeln kann man wenn hier null steht
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                        child: const MyHomePage(),
+                        type: PageTransitionType.rightToLeft),
+                        (route) => false,
+                    // )
+                  );
+                },
+                child: const Text('Bestätigen'),
               ),
             ],
           ),
