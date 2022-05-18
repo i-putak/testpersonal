@@ -15,8 +15,6 @@ class _RetestingState extends State<Retesting> {
   @override
   Widget build(BuildContext context) {
 
-    int _value = 1;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Ergebnis eingeben'),
