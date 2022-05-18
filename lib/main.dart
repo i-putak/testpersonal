@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:testpersonal/screen/ergebnis_eingeben.dart';
+import 'package:testpersonal/screen/scanner.dart';
+
+
 
 void main() {
   runApp(const MyApp());
@@ -58,7 +61,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             //disabeln kann man wenn hier null steht
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                PageTransition(
+                    child: QRViewExample(),
+                    type: PageTransitionType.rightToLeft),
+                // )
+              );
+            },
             child: const Text('Neue Probe anlegen'),
           ),
           const SizedBox(height: 30),
@@ -77,7 +88,9 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             //disabeln kann man wenn hier null steht
-            onPressed: () {},
+            onPressed: () {
+              
+            },
             child: const Text('eNAT erstellen'),
           ),
           const SizedBox(height: 30),

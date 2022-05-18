@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:testpersonal/main.dart';
-import 'package:testpersonal/screen/retesting.dart';
+import '../main.dart';
+import './retesting.dart';
 
 class ErgebnisEingeben extends StatefulWidget {
   const ErgebnisEingeben({Key? key}) : super(key: key);
