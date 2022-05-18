@@ -47,10 +47,10 @@ class _ErgebnisAuswaehlenState extends State<ErgebnisAuswaehlen> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.all(10.0),
+              margin: const EdgeInsets.fromLTRB(10, 100, 10, 0),
               color: Colors.black,
               width: 900.0,
               height: 100.0,
@@ -62,7 +62,7 @@ class _ErgebnisAuswaehlenState extends State<ErgebnisAuswaehlen> {
                       .headline4!
                       .copyWith(color: Colors.white)),
             ),
-            const SizedBox(height: 120),
+            const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(900, 100),
@@ -169,22 +169,40 @@ class _ErgebnisUngueltigState extends State<ErgebnisUngueltig> {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: const EdgeInsets.all(10.0),
+                margin: const EdgeInsets.fromLTRB(10, 100, 10, 0),
                 color: Colors.black,
                 width: 900.0,
                 height: 100.0,
                 alignment: Alignment.topLeft,
-                child: Text("Bestätigen Sie bitte, dass das Ergebnis der Kartusche UNGÜLTIG ist:",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
+                  child: RichText(
+                      text: const TextSpan(
+                          text: 'Bestätigen Sie bitte, dass das Ergebnis der Kartusche ',
+                          style: TextStyle(
+                              fontSize: 33
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: 'UNGÜLTIG',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 33
+                                )
+                            ),
+                            TextSpan(
+                                text: ' ist:',
+                                style: TextStyle(
+                                    fontSize: 33
+                                )
+                            )
+                          ]
+                      )
+
+                  )
               ),
-              const SizedBox(height: 120),
+              const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(900, 100),
@@ -205,7 +223,7 @@ class _ErgebnisUngueltigState extends State<ErgebnisUngueltig> {
                     context,
                     PageTransition(
                         child: const Retesting(),
-                        type: PageTransitionType.leftToRight),
+                        type: PageTransitionType.rightToLeft),
                         (route) => false,
                     // )
                   );
@@ -264,22 +282,39 @@ class _ErgebnisPositivState extends State<ErgebnisPositiv> {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: const EdgeInsets.all(10.0),
+                margin: const EdgeInsets.fromLTRB(10, 100, 10, 0),
                 color: Colors.black,
                 width: 900.0,
                 height: 100.0,
                 alignment: Alignment.topLeft,
-                child: Text("Bestätigen Sie bitte, dass das Ergebnis der Kartusche POSITIV ist:",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
+                  child: RichText(
+                      text: const TextSpan(
+                          text: 'Bestätigen Sie bitte, dass das Ergebnis der Kartusche ',
+                          style: TextStyle(
+                              fontSize: 35
+                          ),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: 'POSITIV',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 35
+                                )
+                            ),
+                            TextSpan(
+                                text: ' ist:',
+                                style: TextStyle(
+                                    fontSize: 35
+                                )
+                            )
+                          ]
+                      )
+                  )
               ),
-              const SizedBox(height: 120),
+              const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(900, 100),
@@ -350,22 +385,40 @@ class _ErgebnisNegativState extends State<ErgebnisNegativ> {
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: const EdgeInsets.all(10.0),
+                margin: const EdgeInsets.fromLTRB(10, 100, 10, 0),
                 color: Colors.black,
                 width: 900.0,
                 height: 100.0,
                 alignment: Alignment.topLeft,
-                child: Text("Bestätigen Sie bitte, dass das Ergebnis der Kartusche NEGATIV ist:",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
+                child: RichText(
+                  text: const TextSpan(
+                      text: 'Bestätigen Sie bitte, dass das Ergebnis der Kartusche ',
+                      style: TextStyle(
+                        fontSize: 35
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'NEGATIV',
+                          style: TextStyle(
+                              color: Colors.green,
+                              fontSize: 35
+                          )
+                        ),
+                        TextSpan(
+                          text: ' ist:',
+                          style: TextStyle(
+                            fontSize: 35
+                          )
+                        )
+                      ]
+                  )
+
+                )
               ),
-              const SizedBox(height: 120),
+              const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(900, 100),
