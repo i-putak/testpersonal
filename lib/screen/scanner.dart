@@ -37,7 +37,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Neue Probe anlegen', 
-          //style: TextStyle(fontSize: 20,),
+          style: TextStyle(fontSize: 25,),
         ),
       ),
       body: Column(
