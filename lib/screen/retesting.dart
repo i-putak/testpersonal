@@ -12,6 +12,15 @@ class Retesting extends StatefulWidget {
 
 class _RetestingState extends State<Retesting> {
 
+  Map<String, int> values ={
+    "eNAT-ID: 1234" : 1,
+    "eNAT-ID: 2234" : 2,
+    "eNAT-ID: 3234" : 3,
+    "eNAT-ID: 1234" : 4
+  };
+
+  int _selected = 1;
+
   @override
   Widget build(BuildContext context) {
 
@@ -36,15 +45,15 @@ class _RetestingState extends State<Retesting> {
                       .headline4!
                       .copyWith(color: Colors.white)),
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 10),
             Container(
               margin: const EdgeInsets.all(10.0),
               color: Colors.white,
               width: 500.0,
-              height: 300.0,
+              height: 400.0,
               alignment: Alignment.topLeft,
               child: Column(
-                children: <Widget>[],
+                children: <Widget>[bodyContent()],
               )
             ),
             const SizedBox(height: 30),
@@ -104,6 +113,31 @@ class _RetestingState extends State<Retesting> {
           ],
         ),
       ),
+    );
+  }
+
+  bodyContent() {
+    return ListView(
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      children: values.keys.map((String key){
+        return RadioListTile<int>(
+            title: Text(key,
+              style: const TextStyle(
+                fontSize: 35,
+                color: Colors.black
+              )
+            ),
+            activeColor: Colors.blue,
+            value: values[key]??_selected,
+            groupValue: _selected,
+            onChanged: (int? value){
+              setState(() {
+                _selected = value??_selected;
+              });
+            }
+        );
+      }).toList(),
     );
   }
 }
