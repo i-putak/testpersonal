@@ -62,7 +62,6 @@ class _RetestingState extends State<Retesting> {
                     fontWeight: FontWeight.bold
                 ),
               ),
-              //disabeln kann man wenn hier null steht
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -90,7 +89,6 @@ class _RetestingState extends State<Retesting> {
                     fontWeight: FontWeight.bold
                 ),
               ),
-              //disabeln kann man wenn hier null steht
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,

@@ -77,7 +77,6 @@ class _ErgebnisAuswaehlenState extends State<ErgebnisAuswaehlen> {
                     fontWeight: FontWeight.bold
                 ),
               ),
-              //disabeln kann man wenn hier null steht
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -105,7 +104,6 @@ class _ErgebnisAuswaehlenState extends State<ErgebnisAuswaehlen> {
                     fontWeight: FontWeight.bold
                 ),
               ),
-              //disabeln kann man wenn hier null steht
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -133,7 +131,6 @@ class _ErgebnisAuswaehlenState extends State<ErgebnisAuswaehlen> {
                     fontWeight: FontWeight.bold
                 ),
               ),
-              //disabeln kann man wenn hier null steht
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -217,7 +214,6 @@ class _ErgebnisUngueltigState extends State<ErgebnisUngueltig> {
                       fontWeight: FontWeight.bold
                   ),
                 ),
-                //disabeln kann man wenn hier null steht
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
@@ -245,7 +241,6 @@ class _ErgebnisUngueltigState extends State<ErgebnisUngueltig> {
                       fontWeight: FontWeight.bold
                   ),
                 ),
-                //disabeln kann man wenn hier null steht
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
@@ -329,8 +324,16 @@ class _ErgebnisPositivState extends State<ErgebnisPositiv> {
                       fontWeight: FontWeight.bold
                   ),
                 ),
-                //disabeln kann man wenn hier null steht
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                        child: const Retesting(),
+                        type: PageTransitionType.rightToLeft),
+                        (route) => false,
+                    // )
+                  );
+                },
                 child: const Text('Bestätigen'),
               ),
               const SizedBox(height: 30),
@@ -348,7 +351,6 @@ class _ErgebnisPositivState extends State<ErgebnisPositiv> {
                       fontWeight: FontWeight.bold
                   ),
                 ),
-                //disabeln kann man wenn hier null steht
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
@@ -433,13 +435,12 @@ class _ErgebnisNegativState extends State<ErgebnisNegativ> {
                       fontWeight: FontWeight.bold
                   ),
                 ),
-                //disabeln kann man wenn hier null steht
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
                     PageTransition(
                         child: const NegativeAnzeigen(),
-                        type: PageTransitionType.leftToRight),
+                        type: PageTransitionType.rightToLeft),
                         (route) => false,
                     // )
                   );
@@ -461,7 +462,6 @@ class _ErgebnisNegativState extends State<ErgebnisNegativ> {
                       fontWeight: FontWeight.bold
                   ),
                 ),
-                //disabeln kann man wenn hier null steht
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
@@ -556,7 +556,6 @@ class _NegativeAnzeigenState extends State<NegativeAnzeigen> {
                       fontWeight: FontWeight.bold
                   ),
                 ),
-                //disabeln kann man wenn hier null steht
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,

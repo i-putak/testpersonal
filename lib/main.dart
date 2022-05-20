@@ -60,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold
               ),
             ),
-            //disabeln kann man wenn hier null steht
             onPressed: () {
               Navigator.push(
                 context,
@@ -87,7 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold
               ),
             ),
-            //disabeln kann man wenn hier null steht
             onPressed: () {
               
             },
@@ -108,7 +106,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold
               ),
             ),
-            //disabeln kann man wenn hier null steht
             onPressed: () {},
             child: const Text('Kartusche erstellen'),
           ),
@@ -127,7 +124,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold
               ),
             ),
-            //disabeln kann man wenn hier null steht
             onPressed: () {},
             child: const Text('Terminliste anzeigen'),
           ),
@@ -146,7 +142,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold
               ),
             ),
-            //disabeln kann man wenn hier null steht
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
@@ -174,7 +169,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold
               ),
             ),
-            //disabeln kann man wenn hier null steht
             onPressed: () {},
             child: const Text('eNAT für Retesting erstellen'),
           ),
