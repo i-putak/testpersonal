@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'package:testpersonal/screen/ergebnis_eingeben.dart';
+import 'package:testpersonal/screen/retesting.dart';
 import 'package:testpersonal/screen/scanner_onetime.dart';
 import 'package:testpersonal/screen/scanner_multiple.dart';
 
@@ -191,7 +192,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                    child: const Retesting(),
+                    type: PageTransitionType.rightToLeft),
+                    (route) => false,
+                // )
+              );
+            },
             child: const Text('eNAT für Retesting erstellen'),
           ),
         ],
