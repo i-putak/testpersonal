@@ -14,8 +14,7 @@ class KartuschenQRCode extends StatefulWidget {
 class _KartuschenQRCodeState extends State<KartuschenQRCode> {
   final controller = TextEditingController();
 
-  String _text = "eNAT-ID: 1234 \neNAT-ID: 2345 \neNAT-ID: 3456";
-
+  String _text = "Kartuschen-ID: 25";
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +75,7 @@ class _KartuschenQRCodeState extends State<KartuschenQRCode> {
               alignment: Alignment.topLeft,
               child: QrImage(
                 data: controller.text,
+                version: QrVersions.auto,
                 size: 250,
               ),
             ),
@@ -94,8 +94,16 @@ class _KartuschenQRCodeState extends State<KartuschenQRCode> {
                     fontWeight: FontWeight.bold
                 ),
               ),
-              //disabeln kann man wenn hier null steht
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: const MyHomePage(),
+                      type: PageTransitionType.rightToLeft),
+                      (route) => false,
+                  // )
+                );
+              },
               child: const Text('Zurück'),
             ),
             const SizedBox(height: 20),
@@ -113,11 +121,11 @@ class _KartuschenQRCodeState extends State<KartuschenQRCode> {
                     fontWeight: FontWeight.bold
                 ),
               ),
-              //disabeln kann man wenn hier null steht
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(
+                      //hier soll verbindng mit http sein
                       child: const MyHomePage(),
                       type: PageTransitionType.rightToLeft),
                       (route) => false,
