@@ -21,7 +21,7 @@ class QrGenerator extends StatelessWidget {
     } else if (type == 'eNAT') {
       titel = 'eNAT erstellen';
       text = 'Drucken Sie bitte den eNAT-QR-Code aus und kleben Sie ihn auf das Röhrchen:';
-    } else if (type == 'kartusche') {
+    } else if (type == 'Kartusche') {
       titel = 'Kartusche erstellen';
       text = 'Drucken Sie bitte den Kartuschen-QR-Code aus und kleben Sie ihn auf die Kartusche:';
     }

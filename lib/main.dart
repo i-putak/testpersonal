@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+
 import 'package:testpersonal/screen/ergebnis_eingeben.dart';
-import 'package:testpersonal/screen/scanner.dart';
+import 'package:testpersonal/screen/scanner_onetime.dart';
+import 'package:testpersonal/screen/scanner_multiple.dart';
 
 
 
@@ -87,7 +91,14 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             onPressed: () {
-              
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                    child: MultipleScanner(5, 'eNAT'),
+                    type: PageTransitionType.rightToLeft),
+                    (route) => false
+                // )
+              );
             },
             child: const Text('eNAT erstellen'),
           ),
@@ -106,7 +117,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                    child: MultipleScanner(3, 'Kartusche'),
+                    type: PageTransitionType.rightToLeft),
+                    (route) => false
+                // )
+              );
+            },
             child: const Text('Kartusche erstellen'),
           ),
           const SizedBox(height: 30),
@@ -124,7 +144,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              
+            },
             child: const Text('Terminliste anzeigen'),
           ),
           const SizedBox(height: 30),

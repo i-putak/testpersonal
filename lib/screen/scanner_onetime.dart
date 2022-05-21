@@ -7,10 +7,11 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:page_transition/page_transition.dart';
 
 import './termin_info_checker_screen.dart';
+import './invalid_termin_qr.dart';
 
 
 class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key? key}) : super(key: key);
+  //const QRViewExample({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _QRViewExampleState();
@@ -20,9 +21,7 @@ class _QRViewExampleState extends State<QRViewExample> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-
-  // In order to get hot reload to work we need to pause the camera if the platform
-  // is android, or resume the camera if the platform is iOS.
+  
   @override
   void reassemble() {
     super.reassemble();
@@ -44,7 +43,7 @@ class _QRViewExampleState extends State<QRViewExample> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            margin:  EdgeInsets.only(top: 40.0, left: 20, bottom: 40),
+            margin: EdgeInsets.only(top: 40.0, left: 20, bottom: 40),
             child: Text('Scannen Sie bitte den Termin-QR-Code',
               style: TextStyle(
                 fontSize: 30,
@@ -112,18 +111,27 @@ class _QRViewExampleState extends State<QRViewExample> {
                     type: PageTransitionType.rightToLeft),
                     (route)=> false
               );
+        } else {
+          controller.pauseCamera();
+          Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                    child: InvalidTerminQr(),
+                    type: PageTransitionType.rightToLeft),
+                    (route)=> false
+              );
         }
       });
     });
   }
 
-  String myMethod(String? myString) {
+  /*String myMethod(String? myString) {
     if (myString == null) {
       return '';
     }
     
     return myString;
-  }
+  }*/
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
