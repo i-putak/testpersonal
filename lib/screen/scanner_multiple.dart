@@ -16,13 +16,16 @@ class Probe {
   late String neueProbenId;
 }
 
-List<String> probenIds = [];
+List<String> _probenIds = [];
+
 
 class MultipleScanner extends StatefulWidget {
   MultipleScanner(this.amount, this.type);
 
   final int amount;
   final String type;
+
+  
 
   @override
   State<MultipleScanner> createState() => _MultipleScannerState();
@@ -31,8 +34,17 @@ class MultipleScanner extends StatefulWidget {
 class _MultipleScannerState extends State<MultipleScanner> {
   TextEditingController textEditingController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
+
+    if(_probenIds.isEmpty) {
+      print('ProbenIds is empty');
+      for(int k = 0; k < widget.amount; k++){
+      _probenIds.add('');
+      } 
+    }
+
     String title = '';
     String component = '';
     String codes = '';
@@ -48,9 +60,7 @@ class _MultipleScannerState extends State<MultipleScanner> {
       codes = 'eNAT-QR-Codes';
     }
 
-    for(int k = 0; k < widget.amount; k++){
-      probenIds.add('');
-    }
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -73,7 +83,7 @@ class _MultipleScannerState extends State<MultipleScanner> {
               children: [
                 Container(
                   padding: EdgeInsets.only(left: 50, top:10, right: 60),
-                  child: Text('${component}' + ' ' + '${(i+1)}' + ': ',
+                  child: Text('${component}' + ' ' + '${(i+1)}' + ': ' + '${_probenIds[i]}',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 25,
@@ -94,7 +104,7 @@ class _MultipleScannerState extends State<MultipleScanner> {
                   child: Text('Löschen',
                   style: TextStyle(
                     fontSize: 25,)),
-                  onPressed: () {probeDelete(i, probenIds);},
+                  onPressed: () {probeDelete(i, _probenIds);},
                 ),
                 Container(
                   padding: EdgeInsets.only(left:10),
@@ -115,7 +125,7 @@ class _MultipleScannerState extends State<MultipleScanner> {
                       Navigator.push(
                         context,
                         PageTransition(
-                          child: QrMultiScanner(index: i, type: widget.type),
+                          child: QrMultiScanner(index: i, type: widget.type, amount: widget.amount),
                           type: PageTransitionType.rightToLeft),
                     );
                     },
@@ -144,10 +154,10 @@ class _MultipleScannerState extends State<MultipleScanner> {
                     )),
                     onPressed: () {
                       for(int g = 0; g < widget.amount; g++) {
-                        print('${component}' + ' ' + g.toString() + ": " + probenIds[g]);
+                        print('${component}' + ' ' + g.toString() + ": " +  _probenIds[g]);
                       }
                       for(int g = widget.amount-1; g >= 0; g--) {
-                        probenIds.remove(probenIds[g]);
+                        _probenIds.remove(_probenIds[g]);
                       }
 
                       //Hier soll man POST schicken und als Repsonse ein eNAT-ID bekommen
@@ -193,7 +203,7 @@ class _MultipleScannerState extends State<MultipleScanner> {
                     ),
                     onPressed: () {
                       for(int g = widget.amount-1; g >= 0; g--) {
-                        probenIds.remove(probenIds[g]);
+                        _probenIds.remove(_probenIds[g]);
                       }
                       
                       Navigator.pushAndRemoveUntil(
@@ -214,6 +224,8 @@ class _MultipleScannerState extends State<MultipleScanner> {
   void probeDelete(index, probenIds){
     probenIds[index] = '';
   }
+
+  
 }
 
 
@@ -223,10 +235,13 @@ class _MultipleScannerState extends State<MultipleScanner> {
 
 
 class QrMultiScanner extends StatefulWidget {
-  QrMultiScanner({Key? key, required this.index, required this.type}) : super(key: key);
+  QrMultiScanner({Key? key, required this.index, required this.type, required this.amount}) : super(key: key);
 
   int index;
   String type;
+  int amount;
+
+
 
   @override
   State<StatefulWidget> createState() => _QrMultiScannerState();
@@ -248,6 +263,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
 
   @override
   Widget build(BuildContext context) {
+
     String title = '';
     String component = '';
     String code = '';
@@ -335,7 +351,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
         if(result != null && result!.code != null) {
           controller.pauseCamera();
           //globale var, für später
-          probenIds[widget.index] = result!.code.toString();
+          _probenIds[widget.index] = result!.code.toString();
           
 
           //text Zeigen
@@ -343,8 +359,13 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
           probe.index = widget.index;
           probe.neueProbenId = result!.code.toString();
 
-
-          Navigator.pop(context);
+          Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                    child: MultipleScanner(widget.amount, widget.type),
+                    type: PageTransitionType.rightToLeft),
+                    (route) => false
+              );
         } else {
           controller.pauseCamera();
           Navigator.push(

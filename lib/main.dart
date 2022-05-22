@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.push(
                 context,
                 PageTransition(
-                    child: QRViewExample(),
+                    child: QRViewExample(type:'Probe'),
                     type: PageTransitionType.rightToLeft),
                 // )
               );
@@ -162,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.pushAndRemoveUntil(
                 context,
                 PageTransition(
-                    child: const ErgebnisAuswaehlen(),
+                    child: QRViewExample(type:'Kartusche'),
                     type: PageTransitionType.rightToLeft),
                 (route) => false,
                 // )

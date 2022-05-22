@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:testpersonal/main.dart';
-import 'package:testpersonal/screen/kartuschen_qr_code.dart';
+import 'package:testpersonal/screen/qr_generator_screen.dart';
 
 class Retesting extends StatefulWidget {
   const Retesting({Key? key}) : super(key: key);
@@ -12,14 +12,17 @@ class Retesting extends StatefulWidget {
 
 class _RetestingState extends State<Retesting> {
 
-  Map<String, int> values ={
-    "eNAT-ID: 1234" : 1,
-    "eNAT-ID: 2234" : 2,
-    "eNAT-ID: 3234" : 3,
-    "eNAT-ID: 1234" : 4
+  //Links sind Keys = eNAT-IDs und die Zahlen rechts sind Radio-Button Auswahl
+  //Die eNAT-IDs sollen automatisch von DB eingelesen werden 
+  Map<int, int> values ={
+    1234 : 1,
+    2345 : 2,
+    4567 : 3,
+    6789 : 4
   };
 
   int _selected = 1;
+  int _idValue = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -72,10 +75,11 @@ class _RetestingState extends State<Retesting> {
                 ),
               ),
               onPressed: () {
+                print(_idValue);
                 Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(
-                      child: const KartuschenQRCode(),
+                      child: QrGenerator(id: _idValue, type: 'Kartusche'),
                       type: PageTransitionType.rightToLeft),
                       (route) => false,
                   // )
@@ -120,9 +124,9 @@ class _RetestingState extends State<Retesting> {
     return ListView(
       scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      children: values.keys.map((String key){
+      children: values.keys.map((int key){
         return RadioListTile<int>(
-            title: Text(key,
+            title: Text('eNAT-ID: ' + '${key}',
               style: const TextStyle(
                 fontSize: 35,
                 color: Colors.black
@@ -134,6 +138,7 @@ class _RetestingState extends State<Retesting> {
             onChanged: (int? value){
               setState(() {
                 _selected = value??_selected;
+                _idValue = key;
               });
             }
         );

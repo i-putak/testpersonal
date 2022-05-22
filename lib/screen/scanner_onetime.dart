@@ -5,13 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:testpersonal/screen/ergebnis_eingeben.dart';
 
 import './termin_info_checker_screen.dart';
 import './invalid_termin_qr.dart';
 
 
 class QRViewExample extends StatefulWidget {
-  //const QRViewExample({Key? key}) : super(key: key);
+  QRViewExample({Key? key, required this.type}) : super(key: key);
+
+  String type;
 
   @override
   State<StatefulWidget> createState() => _QRViewExampleState();
@@ -33,9 +36,20 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   @override
   Widget build(BuildContext context) {
+    String title = '';
+    String text = '';
+
+    if(widget.type == 'Probe'){
+      title = 'Neue Probe anlegen';
+      text = 'Scannen Sie bitte den Termin-QR-Code';
+    } else if (widget.type == 'Kartusche') {
+      title = 'Ergebnis eingeben';
+      text = 'Scannen Sie bitte den Kartuschen-QR-Code';
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Neue Probe anlegen', 
+        title: Text('${title}', 
           style: TextStyle(fontSize: 25,),
         ),
       ),
@@ -44,7 +58,7 @@ class _QRViewExampleState extends State<QRViewExample> {
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(top: 40.0, left: 20, bottom: 40),
-            child: Text('Scannen Sie bitte den Termin-QR-Code',
+            child: Text('${text}',
               style: TextStyle(
                 fontSize: 30,
                 color: Colors.white,
@@ -104,13 +118,23 @@ class _QRViewExampleState extends State<QRViewExample> {
         result = scanData;
         if(result != null && result!.code != null) {
           controller.pauseCamera();
-          Navigator.pushAndRemoveUntil(
+          if(widget.type == 'Probe') {
+            Navigator.pushAndRemoveUntil(
                 context,
                 PageTransition(
                     child: TerminInfoChecker(terminId: result!.code.toString()),
                     type: PageTransitionType.rightToLeft),
                     (route)=> false
               );
+            } else if (widget.type == 'Kartusche'){
+                Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                    child: ErgebnisAuswaehlen(),
+                    type: PageTransitionType.rightToLeft),
+                    (route) => false
+                );
+            }
         } else {
           controller.pauseCamera();
           Navigator.pushAndRemoveUntil(
