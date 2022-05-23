@@ -43,41 +43,25 @@ class _ErgebnisAuswaehlenState extends State<ErgebnisAuswaehlen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Ergebnis eingeben'),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: const Text('Ergebnis eingeben',style: TextStyle(fontSize: 25)),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.fromLTRB(10, 100, 10, 0),
-              color: Colors.black,
-              width: 900.0,
-              height: 100.0,
-              alignment: Alignment.topLeft,
+              padding: EdgeInsets.all(50),
               child: Text("Geben Sie bitte das Testergebnis der Kartusche 1234 ein:",
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline4!
-                      .copyWith(color: Colors.white)),
+                  style: TextStyle(fontSize: 25),),
             ),
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size(900, 100),
-                maximumSize: const Size(900, 100),
-                primary: Colors.white,
-                onPrimary: Colors.black,
-                shape : RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-                textStyle: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                ),
+                primary: Color.fromARGB(255, 150, 150, 150),
+                shadowColor: Color.fromARGB(255, 39, 39, 39),
               ),
-              onPressed: () {
+             onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(
@@ -92,19 +76,10 @@ class _ErgebnisAuswaehlenState extends State<ErgebnisAuswaehlen> {
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size(900, 100),
-                maximumSize: const Size(900, 100),
-                primary: Colors.red,
-                onPrimary: Colors.black,
-                shape : RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-                textStyle: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                ),
+                primary: Theme.of(context).accentColor,
+                shadowColor: Color.fromARGB(255, 39, 39, 39),
               ),
-              onPressed: () {
+               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(
@@ -119,17 +94,8 @@ class _ErgebnisAuswaehlenState extends State<ErgebnisAuswaehlen> {
             const SizedBox(height: 30),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size(900, 100),
-                maximumSize: const Size(900, 100),
                 primary: Colors.green,
-                onPrimary: Colors.white,
-                shape : RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-                textStyle: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
-                ),
+                shadowColor: Color.fromARGB(255, 39, 39, 39),
               ),
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
@@ -162,36 +128,33 @@ class _ErgebnisUngueltigState extends State<ErgebnisUngueltig> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Ergebnis eingeben'),
+          backgroundColor: Theme.of(context).primaryColor,
+          title: const Text('Ergebnis eingeben',style: TextStyle(fontSize: 25)),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: const EdgeInsets.fromLTRB(10, 100, 10, 0),
-                color: Colors.black,
-                width: 900.0,
-                height: 100.0,
-                alignment: Alignment.topLeft,
+                padding: EdgeInsets.all(50),
                   child: RichText(
                       text: const TextSpan(
                           text: 'Bestätigen Sie bitte, dass das Ergebnis der Kartusche ',
                           style: TextStyle(
-                              fontSize: 33
+                              fontSize: 25
                           ),
                           children: <TextSpan>[
                             TextSpan(
                                 text: 'UNGÜLTIG',
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 33
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold
                                 )
                             ),
                             TextSpan(
                                 text: ' ist:',
                                 style: TextStyle(
-                                    fontSize: 33
+                                    fontSize: 25
                                 )
                             )
                           ]
@@ -202,23 +165,13 @@ class _ErgebnisUngueltigState extends State<ErgebnisUngueltig> {
               const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(900, 100),
-                  maximumSize: const Size(900, 100),
-                  primary: Colors.blueAccent,
-                  onPrimary: Colors.white,
-                  shape : RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  textStyle: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  ),
+                  
                 ),
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,
                     PageTransition(
-                        child: const Retesting(),
+                        child: RetestNow(),
                         type: PageTransitionType.rightToLeft),
                         (route) => false,
                     // )
@@ -229,17 +182,8 @@ class _ErgebnisUngueltigState extends State<ErgebnisUngueltig> {
               const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(900, 100),
-                  maximumSize: const Size(900, 100),
-                  primary: Colors.white,
                   onPrimary: Colors.black,
-                  shape : RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  textStyle: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  ),
+                  primary: Color.fromARGB(255, 228, 227, 227),
                 ),
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
@@ -272,96 +216,78 @@ class _ErgebnisPositivState extends State<ErgebnisPositiv> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Ergebnis eingeben'),
-          backgroundColor: Colors.red,
+          backgroundColor: Theme.of(context).primaryColor,
+          title: const Text('Ergebnis eingeben',style: TextStyle(fontSize: 25)),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: const EdgeInsets.fromLTRB(10, 100, 10, 0),
-                color: Colors.black,
-                width: 900.0,
-                height: 100.0,
-                alignment: Alignment.topLeft,
+                padding: EdgeInsets.all(50),
                   child: RichText(
                       text: const TextSpan(
                           text: 'Bestätigen Sie bitte, dass das Ergebnis der Kartusche ',
                           style: TextStyle(
-                              fontSize: 35
+                              fontSize: 25
                           ),
                           children: <TextSpan>[
                             TextSpan(
                                 text: 'POSITIV',
                                 style: TextStyle(
-                                    color: Colors.red,
-                                    fontSize: 35
+                                    color: Color.fromARGB(255, 202, 67, 57),
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
                                 )
                             ),
                             TextSpan(
                                 text: ' ist:',
                                 style: TextStyle(
-                                    fontSize: 35
+                                    fontSize: 25
                                 )
                             )
                           ]
                       )
                   )
               ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(900, 100),
-                  maximumSize: const Size(900, 100),
-                  primary: Colors.blueAccent,
-                  onPrimary: Colors.white,
-                  shape : RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
+              Container(
+                padding: EdgeInsets.only(top: 90),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    
                   ),
-                  textStyle: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  ),
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      PageTransition(
+                          child: RetestNow(),
+                          type: PageTransitionType.rightToLeft),
+                          (route) => false,
+                      // )
+                    );
+                  },
+                  child: const Text('Bestätigen'),
                 ),
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    PageTransition(
-                        child: const Retesting(),
-                        type: PageTransitionType.rightToLeft),
-                        (route) => false,
-                    // )
-                  );
-                },
-                child: const Text('Bestätigen'),
               ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(900, 100),
-                  maximumSize: const Size(900, 100),
-                  primary: Colors.white,
-                  onPrimary: Colors.black,
-                  shape : RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
+              Container(
+                padding: EdgeInsets.only(top: 20),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    onPrimary: Colors.black,
+                   primary: Color.fromARGB(255, 228, 227, 227),
                   ),
-                  textStyle: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  ),
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      PageTransition(
+                          child: const ErgebnisAuswaehlen(),
+                          type: PageTransitionType.leftToRight),
+                          (route) => false,
+                      // )
+                    );
+                  },
+                  child: const Text('Zurück'),
                 ),
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    PageTransition(
-                        child: const ErgebnisAuswaehlen(),
-                        type: PageTransitionType.leftToRight),
-                        (route) => false,
-                    // )
-                  );
-                },
-                child: const Text('Zurück'),
               ),
             ],
           ),
@@ -382,37 +308,34 @@ class _ErgebnisNegativState extends State<ErgebnisNegativ> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Ergebnis eingeben'),
-          backgroundColor: Colors.green,
+          title: const Text('Ergebnis eingeben',style: TextStyle(fontSize: 25)),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: const EdgeInsets.fromLTRB(10, 100, 10, 0),
-                color: Colors.black,
-                width: 900.0,
-                height: 100.0,
-                alignment: Alignment.topLeft,
+                padding: EdgeInsets.all(50),
                 child: RichText(
                   text: const TextSpan(
                       text: 'Bestätigen Sie bitte, dass das Ergebnis der Kartusche ',
                       style: TextStyle(
-                        fontSize: 35
+                        fontSize: 25
                       ),
                       children: <TextSpan>[
                         TextSpan(
                           text: 'NEGATIV',
                           style: TextStyle(
                               color: Colors.green,
-                              fontSize: 35
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
                           )
                         ),
                         TextSpan(
                           text: ' ist:',
                           style: TextStyle(
-                            fontSize: 35
+                            fontSize: 25
                           )
                         )
                       ]
@@ -423,17 +346,7 @@ class _ErgebnisNegativState extends State<ErgebnisNegativ> {
               const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(900, 100),
-                  maximumSize: const Size(900, 100),
-                  primary: Colors.blueAccent,
-                  onPrimary: Colors.white,
-                  shape : RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  textStyle: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  ),
+                  
                 ),
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
@@ -450,17 +363,8 @@ class _ErgebnisNegativState extends State<ErgebnisNegativ> {
               const SizedBox(height: 30),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(900, 100),
-                  maximumSize: const Size(900, 100),
-                  primary: Colors.white,
                   onPrimary: Colors.black,
-                  shape : RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  textStyle: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  ),
+                  primary: Color.fromARGB(255, 228, 227, 227),
                 ),
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
@@ -493,84 +397,125 @@ class _NegativeAnzeigenState extends State<NegativeAnzeigen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Ergebnis eingeben'),
+          title: const Text('Ergebnis eingeben',style: TextStyle(fontSize: 25)),
+          backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Container(
-                margin: const EdgeInsets.all(10.0),
-                color: Colors.black,
-                width: 600.0,
-                height: 100.0,
-                alignment: Alignment.topLeft,
-                child: Text(
-                    "eNATs, die mit diesem Pooltest NEGATIV getestet wurden:",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
-              ),
-              const SizedBox(height: 50),
-              Container(
-                margin: const EdgeInsets.all(10.0),
-                color: Colors.black,
-                width: 250.0,
-                height: 250.0,
-                alignment: Alignment.centerLeft,
-                child: Text("eNAT-ID: 1234\neNAT-ID: 2345\neNAT-ID: 3456",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
-              ),
-              const SizedBox(height: 30),
-              Container(
-                margin: const EdgeInsets.all(10.0),
-                color: Colors.black,
-                width: 600.0,
-                height: 70.0,
-                alignment: Alignment.topLeft,
-                child: Text("Dies eNATs dürfen Sie jetzt entsorgen.",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .headline4!
-                        .copyWith(color: Colors.white)),
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(900, 100),
-                  maximumSize: const Size(900, 100),
-                  primary: Colors.lightBlueAccent,
-                  onPrimary: Colors.white,
-                  shape : RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  textStyle: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                  padding: EdgeInsets.only(left:50, top: 50, right:50),
+                  child: Text(
+                      "eNATs, die mit diesem Pooltest NEGATIV getestet wurden:",
+                      style: TextStyle(fontSize: 25)
+                  )
                 ),
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    PageTransition(
-                        child: const MyHomePage(),
-                        type: PageTransitionType.rightToLeft),
-                        (route) => false,
-                    // )
-                  );
-                },
-                child: const Text('Bestätigen'),
+              Container(
+                padding: EdgeInsets.only(left:100, top: 50),
+                child: Text("eNAT-ID:  1234\n\neNAT-ID:  2345\n\neNAT-ID:  3456",
+                    style: TextStyle(fontSize: 30,
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.bold),
+                    ),
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 50, top: 70),
+                child: Text("Dies eNATs dürfen Sie jetzt entsorgen.",
+                    style: TextStyle(fontSize: 25)),
+              ),]),
+              Container(
+                padding:EdgeInsets.only(bottom: 50),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    
+                  ),
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      PageTransition(
+                          child: const MyHomePage(),
+                          type: PageTransitionType.rightToLeft),
+                          (route) => false,
+                      // )
+                    );
+                  },
+                  child: const Text('Bestätigen'),
+                ),
               ),
             ],
           ),
         )
     );
+  }
+}
+
+
+class RetestNow extends StatelessWidget {
+  const RetestNow({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+          title: const Text('Ergebnis eingeben',style: TextStyle(fontSize: 25)),
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+        body: Center(child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+          Container(
+            padding: EdgeInsets.all(50),
+            child:Text('Diese eNATs wurden als POSITIV gekennzeichnet. Möchten Sie sie sofort erneut testen?',
+            style: TextStyle(fontSize: 25))),
+          Column(
+            children: [
+            Container(
+              padding: EdgeInsets.only(top: 100),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                      
+                ),
+                onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                        child: Retesting(),
+                        type: PageTransitionType.rightToLeft),
+                        (route) => false,
+                        // )
+                      );
+                    },
+                    child: const Text('Jetzt erneut testen'),
+                  ),
+            ),
+
+                Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      onPrimary: Colors.black,
+                      primary: Color.fromARGB(255, 228, 227, 227),
+                    ),
+                    onPressed: () {
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          PageTransition(
+                              child: MyHomePage(),
+                              type: PageTransitionType.rightToLeft),
+                              (route) => false,
+                              // )
+                        );
+                    },
+                    child: const Text('Später'),
+                  ),
+                ),
+          ],)
+        ],)
+      
+    ));
   }
 }

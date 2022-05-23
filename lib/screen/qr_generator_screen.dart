@@ -32,6 +32,7 @@ class QrGenerator extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Theme.of(context).primaryColor,
           title: Text('${titel}', style: TextStyle(fontSize: 25)),
         ),
         body: Column(
@@ -55,20 +56,8 @@ class QrGenerator extends StatelessWidget {
               ),
               Container(
                 padding:
-                    EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
+                    EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 50),
                 child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(900, 100),
-                      maximumSize: const Size(900, 100),
-                      primary: Colors.lightBlueAccent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                      textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold),
-                    ),
                     onPressed: () {
                       Navigator.pushAndRemoveUntil(
                           context,

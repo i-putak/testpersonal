@@ -64,6 +64,7 @@ class _MultipleScannerState extends State<MultipleScanner> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text('${title}', 
           style: TextStyle(fontSize: 25,),
         ),
@@ -80,6 +81,7 @@ class _MultipleScannerState extends State<MultipleScanner> {
           ),
           for(int i = 0; i < widget.amount; i++)
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
                   padding: EdgeInsets.only(left: 50, top:10, right: 60),
@@ -89,49 +91,52 @@ class _MultipleScannerState extends State<MultipleScanner> {
                     fontSize: 25,
                   ),),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                  ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(200, 50),
-                      maximumSize: const Size(200, 50),
-                      primary: Color.fromARGB(255, 230, 95, 95),
-                      shape : RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
-                  ),
-                  child: Text('Löschen',
-                  style: TextStyle(
-                    fontSize: 25,)),
-                  onPressed: () {probeDelete(i, _probenIds);},
-                ),
                 Container(
-                  padding: EdgeInsets.only(left:10),
-                  child: ElevatedButton(
+                  padding: EdgeInsets.only(right: 70),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                    ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(200, 50),
-                        maximumSize: const Size(200, 50),
-                        primary: Colors.lightBlueAccent,
-                        shape : RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                      ),
-                    child: Text('Scannen',
+                      minimumSize: Size(200,50),
+                      maximumSize: Size(200,50),
+                      primary: Theme.of(context).accentColor,
+                      shadowColor: Theme.of(context).accentColor,
+                    ),
+                    child: Text('Löschen',
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
                     )),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          child: QrMultiScanner(index: i, type: widget.type, amount: widget.amount),
-                          type: PageTransitionType.rightToLeft),
-                    );
-                    },
+                    setState(() {
+                      probeDelete(i, _probenIds);
+                    });},
                   ),
-                ),
-                ],)
+                  Container(
+                    padding: EdgeInsets.only(left:10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                      minimumSize: Size(200,50),
+                      maximumSize: Size(200,50)
+                    ),
+                      child: Text('Scannen',
+                      style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                    )),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            child: QrMultiScanner(index: i, type: widget.type, amount: widget.amount),
+                            type: PageTransitionType.rightToLeft),
+                      );
+                      },
+                    ),
+                  ),
+                  ],),
+                )
                 
               ],
             ),
@@ -141,17 +146,10 @@ class _MultipleScannerState extends State<MultipleScanner> {
             padding: EdgeInsets.only(left:50, right:50, bottom:10),
             child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(700, 90),
-                        maximumSize: const Size(700, 90),
-                        primary: Colors.lightBlueAccent,
-                        shape : RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                      ),
-                    child: Text('${widget.type}' + ' erstellen',
-                    style: TextStyle(
-                      fontSize: 30,
-                    )),
+                        minimumSize: Size(700,90),
+                        maximumSize: Size(700,90)
+                     ),
+                    child: Text('${widget.type}' + ' erstellen',),
                     onPressed: () {
                       for(int g = 0; g < widget.amount; g++) {
                         print('${component}' + ' ' + g.toString() + ": " +  _probenIds[g]);
@@ -188,16 +186,12 @@ class _MultipleScannerState extends State<MultipleScanner> {
             padding: EdgeInsets.only(left:50, right:50, bottom: 50),
             child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(700, 90),
-                      maximumSize: const Size(700, 90),
-                      primary: Color.fromARGB(255, 228, 227, 227),
-                      shape : RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                      ),
+                     primary: Color.fromARGB(255, 228, 227, 227), 
+                      minimumSize: Size(700,90),
+                      maximumSize: Size(700,90)
                     ),
                     child: Text('Abbrechen',
                     style: TextStyle(
-                      fontSize: 30,
                       color: Colors.black
                     )
                     ),
@@ -212,7 +206,7 @@ class _MultipleScannerState extends State<MultipleScanner> {
                           child: MyHomePage(),
                           type: PageTransitionType.leftToRight),
                           (route) => false
-                    );
+                      );
                     },
                   ),
           ),],)
@@ -281,6 +275,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text('${title}', 
           style: TextStyle(fontSize: 25,),
         ),
@@ -302,17 +297,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
             flex: 1,
             child: FittedBox(
               fit: BoxFit.contain,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  if (result != null)
-                    Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                  else
-                    const Text('Scannen Sie bitte den QR-Code:'),
               
-                ],
-              ),
             ),
           )
         ],

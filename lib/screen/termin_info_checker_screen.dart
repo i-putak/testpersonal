@@ -27,6 +27,7 @@ class TerminInfoChecker extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text('Probe anlegen', style: TextStyle(fontSize: 25)),
         actions: <Widget> [
           IconButton(onPressed: () {
@@ -47,7 +48,7 @@ class TerminInfoChecker extends StatelessWidget {
               padding: EdgeInsets.only(left: 60, top: 50, bottom: 20, right: 60),
               child: Text('Termin: ' + '${DateFormat('dd.MM.yyyy HH:mm').format(datumZeit)}' + ' Uhr',
               style: TextStyle(
-                color: Colors.white,
+                color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 28,
               )),
@@ -78,21 +79,10 @@ Klasse:  ${klasse}''',maxLines: 20, style: TextStyle(fontSize: 28 ,color: Colors
 
           Column(children: [
             Container(
-              padding: EdgeInsets.only(left: 30, right:30, top:20, bottom: 20),
+              padding: EdgeInsets.only(left: 30, right:30, top:20, bottom: 10),
               child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(900, 100),
-                  maximumSize: const Size(900, 100),
-                  primary: Colors.lightBlueAccent,
-                  shape : RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
+                style: ElevatedButton.styleFrom(),
+                
                 onPressed: () {
                   //hier soll man einen POST an DB schicken um eine Probe anzulegen
                   //als Response soll hier einen ProbenId kommen
@@ -113,16 +103,11 @@ Klasse:  ${klasse}''',maxLines: 20, style: TextStyle(fontSize: 28 ,color: Colors
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 30, right:30, top:20, bottom: 20),
+              padding: EdgeInsets.only(left: 30, right:30, top:10, bottom: 50),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(900, 100),
-                  maximumSize: const Size(900, 100),
-                  primary: Color.fromARGB(255, 218, 217, 217),
-                  shape : RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                ),
+                  primary: Color.fromARGB(255, 228, 227, 227),
+                      ),
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
                     context,

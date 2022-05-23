@@ -49,6 +49,7 @@ class _QRViewExampleState extends State<QRViewExample> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
         title: Text('${title}', 
           style: TextStyle(fontSize: 25,),
         ),
@@ -70,17 +71,6 @@ class _QRViewExampleState extends State<QRViewExample> {
             flex: 1,
             child: FittedBox(
               fit: BoxFit.contain,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  if (result != null)
-                    Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                  else
-                    const Text('Scannen Sie bitte den Termin-QR-Code'),
-              
-                ],
-              ),
             ),
           )
         ],
@@ -149,13 +139,6 @@ class _QRViewExampleState extends State<QRViewExample> {
     });
   }
 
-  /*String myMethod(String? myString) {
-    if (myString == null) {
-      return '';
-    }
-    
-    return myString;
-  }*/
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
