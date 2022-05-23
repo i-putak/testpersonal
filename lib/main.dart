@@ -125,20 +125,6 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Text('Ergebnis eingeben'),
           ),
           ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                    child: ViewSchedule(),
-                    type: PageTransitionType.rightToLeft),
-                // )
-              );
-            },
-            child: const Text('Terminliste'),
-          ),
-          Container(
-            padding: EdgeInsets.only(bottom: 120),
-            child: ElevatedButton(
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
@@ -150,7 +136,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               child: const Text('Retesting'),
-            ),
+          ),
+          Container(
+              padding: EdgeInsets.only(bottom: 120),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                        child: ViewSchedule(),
+                        type: PageTransitionType.rightToLeft),
+                    // )
+                  );
+                },
+                child: const Text('Terminliste'),
+              ),
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
