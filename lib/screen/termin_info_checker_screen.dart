@@ -3,16 +3,20 @@ import 'package:testpersonal/main.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:intl/intl.dart';
 
+import '../models/appointment.dart';
+import '../models/user.dart';
 import './qr_generator_screen.dart';
 import '../main.dart';
 
 class TerminInfoChecker extends StatelessWidget {
-  const TerminInfoChecker({ Key? key, required this.terminId }) : super(key: key);
+  const TerminInfoChecker({ Key? key, required this.appointment, required this.user }) : super(key: key);
 
-  final String terminId;
+  final AppointmentDetails appointment;
+  final User user;
 
   @override
   Widget build(BuildContext context) {
+    /*
     //Folgende Daten soll man mit einemGET Request von DB bekommen:
     //Teilnehmer Daten
     String vorname = 'Max';
@@ -24,6 +28,8 @@ class TerminInfoChecker extends StatelessWidget {
 
     //Termin Daten
     DateTime datumZeit = DateTime(2022, 3, 29, 9, 15);
+
+     */
 
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +52,7 @@ class TerminInfoChecker extends StatelessWidget {
             children: <Widget>[
             Container(
               padding: EdgeInsets.only(left: 60, top: 50, bottom: 20, right: 60),
-              child: Text('Termin: ' + '${DateFormat('dd.MM.yyyy HH:mm').format(datumZeit)}' + ' Uhr',
+              child: Text('Termin: ' + '${DateFormat('dd.MM.yyyy HH:mm').format(appointment.datum)}' + ' Uhr',
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.bold,
@@ -63,13 +69,13 @@ class TerminInfoChecker extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.only(left: 60, top: 20, bottom: 20, right: 60),
-              child: Text('''TerminId:  ${terminId}
-Name:  ${nachname}
-Vorname:  ${vorname}
-Geburtsdatum:  ${DateFormat('dd.MM.yyyy').format(geburtsdatum)}
-E-mail:  ${email}
-Tel.-Nr:  ${telefonnummer}
-Klasse:  ${klasse}''',maxLines: 20, style: TextStyle(fontSize: 28 ,color: Colors.white) , 
+              child: Text('''TerminId:  ${appointment.appointmentId}
+                                 Name:  ${user.name}
+                              Vorname:  ${user.vorname}
+                         Geburtsdatum:  ${DateFormat('dd.MM.yyyy').format(user.geburtsdatum)}
+                               E-mail:  ${user.email}
+                              Tel.-Nr:  ${user.telefonnummer}
+                                Klasse:  ${user.klasse}''',maxLines: 20, style: TextStyle(fontSize: 28 ,color: Colors.white) ,
               ),
             )
 
