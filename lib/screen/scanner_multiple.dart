@@ -333,7 +333,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        var qrType = result.toString().split('_');
+        var qrType = result!.code.toString().split('_');
         if(result != null && result!.code != null) {
           //globale var, für später
 
