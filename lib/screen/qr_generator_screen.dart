@@ -15,16 +15,20 @@ class QrGenerator extends StatelessWidget {
   Widget build(BuildContext context) {
     String titel = '';
     String text = '';
+    String erkennen = '';
 
     if (type == 'probe') {
+      erkennen = 'P_' + id.toString();
       titel = 'Probe anlegen';
       text =
           'Drucken Sie bitte den Proben-QR-Code und händigen Sie ihn dem Teilnehmer aus.';
     } else if (type == 'eNAT') {
+      erkennen = 'E_' + id.toString();
       titel = 'eNAT erstellen';
       text =
           'Drucken Sie bitte den eNAT-QR-Code aus und kleben Sie ihn auf das Röhrchen:';
     } else if (type == 'Kartusche') {
+      erkennen = 'K_' + id.toString();
       titel = 'Kartusche erstellen';
       text =
           'Drucken Sie bitte den Kartuschen-QR-Code aus und kleben Sie ihn auf die Kartusche:';
@@ -47,7 +51,7 @@ class QrGenerator extends StatelessWidget {
                       ))),
               Container(
                 child: QrImage(
-                  data: id.toString(),
+                  data: erkennen,
                   version: QrVersions.auto,
                   size: 300.0,
                   foregroundColor: Colors.black,

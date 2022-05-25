@@ -100,8 +100,8 @@ class _MultipleScannerState extends State<MultipleScanner> {
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(200,50),
                       maximumSize: Size(200,50),
-                      primary: Theme.of(context).accentColor,
-                      shadowColor: Theme.of(context).accentColor,
+                      primary: Theme.of(context).colorScheme.secondary,
+                      shadowColor: Theme.of(context).colorScheme.secondary,
                     ),
                     child: Text('Löschen',
                     style: TextStyle(
@@ -284,16 +284,16 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(top: 40.0, left: 20, bottom: 40),
+            margin: const EdgeInsets.only(top: 40.0, left: 20, bottom: 40),
             child: Text('Scannen Sie bitte den ' + '${code}' + ':',
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 30,
                 color: Colors.white,
               )
             ),
           ),
           Expanded(flex: 4, child: _buildQrView(context)),
-          Expanded(
+          const Expanded(
             flex: 1,
             child: FittedBox(
               fit: BoxFit.contain,
@@ -333,24 +333,97 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        var qrType = result.toString().split('_');
         if(result != null && result!.code != null) {
-          controller.pauseCamera();
           //globale var, für später
-          _probenIds[widget.index] = result!.code.toString();
-          
 
-          //text Zeigen
-          Probe probe = Probe();
-          probe.index = widget.index;
-          probe.neueProbenId = result!.code.toString();
+          if(widget.type == 'eNAT'){
+            if(qrType[0] == 'P'){
+              controller.pauseCamera();
+              _probenIds[widget.index] = result!.code.toString();
 
-          Navigator.pushAndRemoveUntil(
-                context,
-                PageTransition(
-                    child: MultipleScanner(widget.amount, widget.type),
-                    type: PageTransitionType.rightToLeft),
-                    (route) => false
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: MultipleScanner(widget.amount, widget.type),
+                      type: PageTransitionType.rightToLeft),
+                      (route) => false
               );
+            }else if(qrType[0] == 'K'){
+              _probenIds[widget.index] = result!.code.toString();
+
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: MultipleScanner(widget.amount, widget.type),
+                      type: PageTransitionType.rightToLeft),
+                      (route) => false
+              );
+            }else if(qrType[0] == 'E'){
+              _probenIds[widget.index] = result!.code.toString();
+
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: MultipleScanner(widget.amount, widget.type),
+                      type: PageTransitionType.rightToLeft),
+                      (route) => false
+              );
+            }else if(qrType[0] == 'T'){
+              _probenIds[widget.index] = result!.code.toString();
+
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: MultipleScanner(widget.amount, widget.type),
+                      type: PageTransitionType.rightToLeft),
+                      (route) => false
+              );
+            }
+          }else if(widget.type == 'Kartusche'){
+            if(qrType[0] == 'E'){
+              controller.pauseCamera();
+              _probenIds[widget.index] = result!.code.toString();
+
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: MultipleScanner(widget.amount, widget.type),
+                      type: PageTransitionType.rightToLeft),
+                      (route) => false
+              );
+            }else if(qrType[0] == 'K'){
+              _probenIds[widget.index] = result!.code.toString();
+
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: MultipleScanner(widget.amount, widget.type),
+                      type: PageTransitionType.rightToLeft),
+                      (route) => false
+              );
+            }else if(qrType[0] == 'P'){
+              _probenIds[widget.index] = result!.code.toString();
+
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: MultipleScanner(widget.amount, widget.type),
+                      type: PageTransitionType.rightToLeft),
+                      (route) => false
+              );
+            }else if(qrType[0] == 'T'){
+              _probenIds[widget.index] = result!.code.toString();
+
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: MultipleScanner(widget.amount, widget.type),
+                      type: PageTransitionType.rightToLeft),
+                      (route) => false
+              );
+            }
+          }
         } else {
           controller.pauseCamera();
           Navigator.push(
