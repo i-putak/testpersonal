@@ -24,44 +24,32 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.dark().copyWith(
             primaryColor: Color.fromARGB(255, 104, 188, 228),
             accentColor: Color.fromARGB(255, 202, 67, 57),
-            
             buttonTheme: ButtonTheme.of(context).copyWith(
-              buttonColor: Colors.lightBlueAccent,
-              textTheme: ButtonTextTheme.primary,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)
-              )
-            ),
-            elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 104, 188, 228),
-                shadowColor: Color.fromARGB(255, 0, 174, 255),
-                elevation: 5,
+                buttonColor: Colors.lightBlueAccent,
+                textTheme: ButtonTextTheme.primary,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0)
-                ),
-                minimumSize: Size(600,100),
-                maximumSize: Size(600,100),
-                textStyle: TextStyle(
+                    borderRadius: BorderRadius.circular(10.0))),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 104, 188, 228),
+              shadowColor: Color.fromARGB(255, 0, 174, 255),
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
+              minimumSize: Size(600, 90),
+              maximumSize: Size(600, 90),
+              textStyle: TextStyle(
                   color: Colors.black,
                   fontSize: 30,
-                  fontWeight: FontWeight.w500
-                ),
-              )
-            ),
-
+                  fontWeight: FontWeight.w500),
+            )),
             textTheme: TextTheme(
               displayMedium: TextStyle(
                 color: Colors.white,
                 fontSize: 20,
               ),
-
-            )
-
-        ),
-        home: MyHomePage()
-            
-    );
+            )),
+        home: MyHomePage());
   }
 }
 
@@ -76,27 +64,25 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    
-      body: Center(
+        body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-         Container(
-           padding: EdgeInsets.only(top:120),
-           child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                        child: QRViewExample(type:'Probe'),
-                        type: PageTransitionType.rightToLeft),
-                    // )
-                  );
-                },
-                child: const Text('Neue Probe'),
-              ),
-         ),
-          
+          Container(
+            padding: EdgeInsets.only(top: 120),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      child: QRViewExample(type: 'Probe'),
+                      type: PageTransitionType.rightToLeft),
+                  // )
+                );
+              },
+              child: const Text('Neue Probe erstellen'),
+            ),
+          ),
           Container(
             child: ElevatedButton(
               onPressed: () {
@@ -125,13 +111,12 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             child: const Text('Kartusche erstellen'),
           ),
-          
           ElevatedButton(
-           onPressed: () {
+            onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
                 PageTransition(
-                    child: QRViewExample(type:'Kartusche'),
+                    child: QRViewExample(type: 'Kartusche'),
                     type: PageTransitionType.rightToLeft),
                 (route) => false,
                 // )
@@ -139,40 +124,34 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             child: const Text('Ergebnis eingeben'),
           ),
-          
-          Container(
-            
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    PageTransition(
-                        child: const Retesting(),
-                        type: PageTransitionType.rightToLeft),
-                        (route) => false,
-                    // )
-                  );
-                },
-                child: const Text('Retesting'),
-              ),
-          ),
-          Container(
-            padding: EdgeInsets.only(bottom: 120),
-            child: ElevatedButton(
-              
+          ElevatedButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(
-                      child: ViewSchedule(),
+                      child: const Retesting(),
                       type: PageTransitionType.rightToLeft),
+                  (route) => false,
                   // )
                 );
               },
-              child: const Text('Terminliste'),
-            ),
+              child: const Text('Retesting'),
           ),
-          
+          Container(
+              padding: EdgeInsets.only(bottom: 120),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                        child: ViewSchedule(),
+                        type: PageTransitionType.rightToLeft),
+                    // )
+                  );
+                },
+                child: const Text('Terminliste'),
+              ),
+          ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     ));

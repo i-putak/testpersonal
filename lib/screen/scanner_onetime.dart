@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:testpersonal/screen/ergebnis_eingeben.dart';
+import 'package:testpersonal/widget/pop_up.dart';
 
 import './termin_info_checker_screen.dart';
 import './invalid_termin_qr.dart';
@@ -106,25 +107,84 @@ class _QRViewExampleState extends State<QRViewExample> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        var qrType = result.toString().split('_');
         if(result != null && result!.code != null) {
           controller.pauseCamera();
           if(widget.type == 'Probe') {
-            Navigator.pushAndRemoveUntil(
-                context,
-                PageTransition(
-                    child: TerminInfoChecker(terminId: result!.code.toString()),
-                    type: PageTransitionType.rightToLeft),
-                    (route)=> false
+            if(qrType[0] == 'T'){
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: TerminInfoChecker(terminId: result!.code.toString()),
+                      type: PageTransitionType.rightToLeft),
+                      (route)=> false
               );
-            } else if (widget.type == 'Kartusche'){
-                Navigator.pushAndRemoveUntil(
-                context,
-                PageTransition(
-                    child: ErgebnisAuswaehlen(),
-                    type: PageTransitionType.rightToLeft),
-                    (route) => false
-                );
+            }else if(qrType[0] == 'K'){
+              pop_up(context, 'K');
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: QRViewExample(type: 'Probe'),
+                      type: PageTransitionType.rightToLeft),
+                      (route)=> false
+              );
+            }else if(qrType[0] == 'E'){
+              pop_up(context, 'E');
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: QRViewExample(type: 'Probe'),
+                      type: PageTransitionType.rightToLeft),
+                      (route)=> false
+              );
+            }else if(qrType[0] == 'P'){
+              pop_up(context, 'P');
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: QRViewExample(type: 'Probe'),
+                      type: PageTransitionType.rightToLeft),
+                      (route)=> false
+              );
             }
+          } else if (widget.type == 'Kartusche'){
+            if(qrType[0] == 'K') {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: ErgebnisAuswaehlen(),
+                      type: PageTransitionType.rightToLeft),
+                      (route) => false
+              );
+            }else if(qrType[0] == 'P'){
+              pop_up(context, 'P');
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: QRViewExample(type: 'Kartusche'),
+                      type: PageTransitionType.rightToLeft),
+                      (route)=> false
+              );
+            }else if(qrType[0] == 'E'){
+              pop_up(context, 'E');
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: QRViewExample(type: 'Kartusche'),
+                      type: PageTransitionType.rightToLeft),
+                      (route)=> false
+              );
+            }else if(qrType[0] == 'T'){
+              pop_up(context, 'T');
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: QRViewExample(type: 'Kartusche'),
+                      type: PageTransitionType.rightToLeft),
+                      (route)=> false
+              );
+            }
+          }
         } else {
           controller.pauseCamera();
           Navigator.pushAndRemoveUntil(
@@ -133,7 +193,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                     child: InvalidTerminQr(),
                     type: PageTransitionType.rightToLeft),
                     (route)=> false
-              );
+          );
         }
       });
     });
