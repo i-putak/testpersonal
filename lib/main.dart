@@ -40,8 +40,8 @@ class MyApp extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)
                 ),
-                minimumSize: Size(600,90),
-                maximumSize: Size(600,90),
+                minimumSize: Size(600,100),
+                maximumSize: Size(600,100),
                 textStyle: TextStyle(
                   color: Colors.black,
                   fontSize: 30,
@@ -125,18 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             child: const Text('Kartusche erstellen'),
           ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                    child: ViewSchedule(),
-                    type: PageTransitionType.rightToLeft),
-                // )
-              );
-            },
-            child: const Text('Terminliste'),
-          ),
+          
           ElevatedButton(
            onPressed: () {
               Navigator.pushAndRemoveUntil(
@@ -152,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           
           Container(
-            padding: EdgeInsets.only(bottom: 120),
+            
             child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushAndRemoveUntil(
@@ -166,6 +155,22 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 child: const Text('Retesting'),
               ),
+          ),
+          Container(
+            padding: EdgeInsets.only(bottom: 120),
+            child: ElevatedButton(
+              
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      child: ViewSchedule(),
+                      type: PageTransitionType.rightToLeft),
+                  // )
+                );
+              },
+              child: const Text('Terminliste'),
+            ),
           ),
           
         ],
