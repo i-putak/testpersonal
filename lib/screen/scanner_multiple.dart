@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 
 import './invalid_termin_qr.dart';
 import 'qr_generator_screen.dart';
+import '../widget/pop_up.dart';
 
 //Probe wird nicht benutzt
 class Probe {
@@ -148,8 +149,8 @@ class _MultipleScannerState extends State<MultipleScanner> {
                     style: ElevatedButton.styleFrom(
                       minimumSize: Size(200,50),
                       maximumSize: Size(200,50),
-                      primary: Theme.of(context).colorScheme.secondary,
-                      shadowColor: Theme.of(context).colorScheme.secondary,
+                      primary: Theme.of(context).accentColor,
+                      shadowColor: Theme.of(context).accentColor,
                     ),
                     child: Text('Löschen',
                     style: TextStyle(
@@ -338,7 +339,8 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
         ),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
             margin: const EdgeInsets.only(top: 40.0, left: 20, bottom: 40),
@@ -356,7 +358,27 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
               fit: BoxFit.contain,
               
             ),
-          )
+          ),
+           Container(
+             padding: EdgeInsets.only(bottom: 50),
+             child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromARGB(255, 150, 150, 150),
+                  shadowColor: Color.fromARGB(255, 39, 39, 39),
+                ),
+               onPressed: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                        child: MultipleScanner(widget.amount, widget.type),
+                        type: PageTransitionType.rightToLeft),
+                        (route) => false,
+                    // )
+                  );
+                },
+                child: const Text('Abbrechen'),
+              ),
+           ),
         ],
       ),
     );
@@ -393,10 +415,10 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
         var qrType = result!.code.toString().split('_');
         if(result != null && result!.code != null) {
           //globale var, für später
-
+          controller.pauseCamera();
           if(widget.type == 'eNAT'){
             if(qrType[0] == 'P'){
-              controller.pauseCamera();
+              
               _probenIds[widget.index] = qrType[1].toString();
 
               Navigator.pushAndRemoveUntil(
@@ -407,34 +429,24 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                       (route) => false
               );
             }else if(qrType[0] == 'K'){
-
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: MultipleScanner(widget.amount, widget.type),
-                      type: PageTransitionType.rightToLeft),
-                      (route) => false
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => pop_up(context, 'K', 'Probe', widget.amount, widget.index),
               );
+              
             }else if(qrType[0] == 'E'){
-
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: MultipleScanner(widget.amount, widget.type),
-                      type: PageTransitionType.rightToLeft),
-                      (route) => false
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => pop_up(context, 'E', 'Probe', widget.amount, widget.index),
               );
+              
             }else if(qrType[0] == 'T'){
-
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: MultipleScanner(widget.amount, widget.type),
-                      type: PageTransitionType.rightToLeft),
-                      (route) => false
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => pop_up(context, 'T', 'Probe', widget.amount, widget.index),
               );
             }
-          }else if(widget.type == 'Kartusche'){
+          } else if(widget.type == 'Kartusche'){
             if(qrType[0] == 'E'){
               controller.pauseCamera();
               _probenIds[widget.index] = qrType[1].toString();
@@ -447,31 +459,19 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                       (route) => false
               );
             }else if(qrType[0] == 'K'){
-
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: MultipleScanner(widget.amount, widget.type),
-                      type: PageTransitionType.rightToLeft),
-                      (route) => false
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => pop_up(context, 'K', 'eNAT', widget.amount, widget.index),
               );
             }else if(qrType[0] == 'P'){
-
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: MultipleScanner(widget.amount, widget.type),
-                      type: PageTransitionType.rightToLeft),
-                      (route) => false
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => pop_up(context, 'P', 'eNAT', widget.amount, widget.index),
               );
             }else if(qrType[0] == 'T'){
-
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: MultipleScanner(widget.amount, widget.type),
-                      type: PageTransitionType.rightToLeft),
-                      (route) => false
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => pop_up(context, 'T', 'eNAT', widget.amount, widget.index),
               );
             }
           }
@@ -482,7 +482,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                 PageTransition(
                     child: InvalidTerminQr(),
                     type: PageTransitionType.rightToLeft),
-              );
+          );
         }
       });
     });

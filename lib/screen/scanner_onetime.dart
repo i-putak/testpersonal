@@ -68,8 +68,8 @@ class _QRViewExampleState extends State<QRViewExample> {
       text = 'Scannen Sie bitte den Termin-QR-Code';
     } else if (widget.type == 'Kartusche') {
       title = 'Ergebnis eingeben';
-      text = 'Scannen Sie bitte den Kartuschen-QR-Code';
-    }
+      text = 'Scannen Sie bitte den Kartuschen- oder Retest-QR-Code';
+    } 
 
     return Scaffold(
       appBar: AppBar(
@@ -154,29 +154,11 @@ class _QRViewExampleState extends State<QRViewExample> {
                 ),
               );
             } else if (qrType[0] == 'K') {
-              pop_up(context, 'K');
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: QRViewExample(type: 'Probe'),
-                      type: PageTransitionType.rightToLeft),
-                  (route) => false);
+              pop_up(context, 'K', 'Probe', 1, 1);
             } else if (qrType[0] == 'E') {
-              pop_up(context, 'E');
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: QRViewExample(type: 'Probe'),
-                      type: PageTransitionType.rightToLeft),
-                  (route) => false);
+              pop_up(context, 'E', 'Probe', 1, 1);
             } else if (qrType[0] == 'P') {
-              pop_up(context, 'P');
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: QRViewExample(type: 'Probe'),
-                      type: PageTransitionType.rightToLeft),
-                  (route) => false);
+              pop_up(context, 'P', 'Probe', 1, 1);
             }
           } else if (widget.type == 'Kartusche') {
             if (qrType[0] == 'K') {
@@ -187,31 +169,13 @@ class _QRViewExampleState extends State<QRViewExample> {
                       type: PageTransitionType.rightToLeft),
                   (route) => false);
             } else if (qrType[0] == 'P') {
-              pop_up(context, 'P');
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: QRViewExample(type: 'Kartusche'),
-                      type: PageTransitionType.rightToLeft),
-                  (route) => false);
+              pop_up(context, 'P', 'Kartusche', 1, 1);
             } else if (qrType[0] == 'E') {
-              pop_up(context, 'E');
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: QRViewExample(type: 'Kartusche'),
-                      type: PageTransitionType.rightToLeft),
-                  (route) => false);
+              pop_up(context, 'E', 'Kartusche', 1, 1);
             } else if (qrType[0] == 'T') {
-              pop_up(context, 'T');
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: QRViewExample(type: 'Kartusche'),
-                      type: PageTransitionType.rightToLeft),
-                  (route) => false);
+              pop_up(context, 'T', 'Kartusche', 1, 1);
             }
-          }
+          } 
         } else {
           controller.pauseCamera();
           Navigator.pushAndRemoveUntil(
