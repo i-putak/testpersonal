@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:testpersonal/main.dart';
+import 'package:http/http.dart' as http;
 
 import './invalid_termin_qr.dart';
 import 'qr_generator_screen.dart';
@@ -17,6 +19,52 @@ class Probe {
 }
 
 List<String> _probenIds = [];
+
+Future <int> _createEnattest(int probenId1, int probenId2, int probenId3, int probenId4, int probenId5) async{
+  var url = "http://10.0.2.2:8080/api/createEnattest/" + probenId1.toString() + "/" + probenId2.toString() + "/" + probenId3.toString() + "/" + probenId4.toString() + "/" + probenId5.toString() + "/";
+
+  http.Response response = await http.post(
+    Uri.parse(url),
+    headers: {"Content-Type": "application/json"},
+  );
+  if (response.statusCode == 200) {
+    print('Enattest wurde erstellt');
+
+    print(response.body);
+
+    Map data = json.decode(response.body);
+
+    print(data);
+
+    int enattestId = data['enatId'];
+    print(enattestId);
+    return enattestId;
+  } else {
+    throw Exception('Enattest konnte nicht angelegt werden');
+  }
+}
+
+Future <int> _createPooltest(int enattestId1, int enattestId2, int enattestId3) async{
+  var url = "http://10.0.2.2:8080/api/createPooltest/" + enattestId1.toString() + "/" + enattestId2.toString() + "/" + enattestId3.toString();
+
+  http.Response response = await http.post(
+    Uri.parse(url),
+    headers: {"Content-Type": "application/json"},
+  );
+  if (response.statusCode == 200) {
+    print('Pooltest wurde erstellt');
+    print(response.body);
+
+    Map data = json.decode(response.body);
+
+    print(data);
+
+    int pooltestId = data['pooltestId'];
+    return pooltestId;
+  } else {
+    throw Exception('Pooltest konnte nicht angelegt werden');
+  }
+}
 
 
 class MultipleScanner extends StatefulWidget {
@@ -154,30 +202,39 @@ class _MultipleScannerState extends State<MultipleScanner> {
                       for(int g = 0; g < widget.amount; g++) {
                         print('${component}' + ' ' + g.toString() + ": " +  _probenIds[g]);
                       }
-                      for(int g = widget.amount-1; g >= 0; g--) {
-                        _probenIds.remove(_probenIds[g]);
-                      }
+                      
 
-                      //Hier soll man POST schicken und als Repsonse ein eNAT-ID bekommen
-                      int neueId = 5;
-
+                      
                       if(widget.type == 'eNAT') {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          PageTransition(
-                            child: QrGenerator(id: neueId, type: 'eNAT'),
-                            type: PageTransitionType.rightToLeft),
-                            (route) => false
-                        );
+                        _createEnattest(int.parse(_probenIds[0]), int.parse(_probenIds[1]), int.parse(_probenIds[2]), int.parse(_probenIds[3]), int.parse(_probenIds[4])).then((enattestId) {
+                          for(int g = widget.amount-1; g >= 0; g--) {
+                            _probenIds.remove(_probenIds[g]);
+                          }
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            PageTransition(
+                              child: QrGenerator(id: enattestId, type: 'eNAT'),
+                              type: PageTransitionType.rightToLeft),
+                              (route) => false
+                          );
+                        });
+                        
                       } else if (widget.type == 'Kartusche') {
-                        Navigator.pushAndRemoveUntil(
-                          context,
-                          PageTransition(
-                            child: QrGenerator(id: neueId, type: 'Kartusche'),
-                            type: PageTransitionType.rightToLeft),
-                            (route) => false
-                        );
+                        _createPooltest(int.parse(_probenIds[0]), int.parse(_probenIds[1]), int.parse(_probenIds[2])).then((pooltestId) {
+                          for(int g = widget.amount-1; g >= 0; g--) {
+                            _probenIds.remove(_probenIds[g]);
+                          }
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            PageTransition(
+                              child: QrGenerator(id: pooltestId, type: 'Kartusche'),
+                              type: PageTransitionType.rightToLeft),
+                              (route) => false
+                          );
+                        });
                       }
+
+                      
                     },
                   ),
           ),
@@ -340,7 +397,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
           if(widget.type == 'eNAT'){
             if(qrType[0] == 'P'){
               controller.pauseCamera();
-              _probenIds[widget.index] = result!.code.toString();
+              _probenIds[widget.index] = qrType[1].toString();
 
               Navigator.pushAndRemoveUntil(
                   context,
@@ -350,7 +407,6 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                       (route) => false
               );
             }else if(qrType[0] == 'K'){
-              _probenIds[widget.index] = result!.code.toString();
 
               Navigator.pushAndRemoveUntil(
                   context,
@@ -360,7 +416,6 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                       (route) => false
               );
             }else if(qrType[0] == 'E'){
-              _probenIds[widget.index] = result!.code.toString();
 
               Navigator.pushAndRemoveUntil(
                   context,
@@ -370,7 +425,6 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                       (route) => false
               );
             }else if(qrType[0] == 'T'){
-              _probenIds[widget.index] = result!.code.toString();
 
               Navigator.pushAndRemoveUntil(
                   context,
@@ -383,7 +437,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
           }else if(widget.type == 'Kartusche'){
             if(qrType[0] == 'E'){
               controller.pauseCamera();
-              _probenIds[widget.index] = result!.code.toString();
+              _probenIds[widget.index] = qrType[1].toString();
 
               Navigator.pushAndRemoveUntil(
                   context,
@@ -393,7 +447,6 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                       (route) => false
               );
             }else if(qrType[0] == 'K'){
-              _probenIds[widget.index] = result!.code.toString();
 
               Navigator.pushAndRemoveUntil(
                   context,
@@ -403,7 +456,6 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                       (route) => false
               );
             }else if(qrType[0] == 'P'){
-              _probenIds[widget.index] = result!.code.toString();
 
               Navigator.pushAndRemoveUntil(
                   context,
@@ -413,7 +465,6 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                       (route) => false
               );
             }else if(qrType[0] == 'T'){
-              _probenIds[widget.index] = result!.code.toString();
 
               Navigator.pushAndRemoveUntil(
                   context,
@@ -453,3 +504,5 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
     super.dispose();
   }
 }
+
+

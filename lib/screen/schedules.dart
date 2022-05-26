@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 import '../main.dart';
 import './retesting.dart';
 

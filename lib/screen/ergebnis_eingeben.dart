@@ -1,35 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 import '../main.dart';
 import './retesting.dart';
 
-class ErgebnisEingeben extends StatefulWidget {
-  const ErgebnisEingeben({Key? key}) : super(key: key);
-
-  @override
-  State<ErgebnisEingeben> createState() => _ErgebnisEingebenState();
-}
-
-class _ErgebnisEingebenState extends State<ErgebnisEingeben> {
-  MobileScannerController cameraController = MobileScannerController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-            title: const Text('Ergebnis eingeben'),
-        ),
-        body: MobileScanner(
-          allowDuplicates: false,
-          onDetect: (barcode, args) {
-            final String? code = barcode.rawValue;
-            debugPrint('Barcode found! $code');
-          }
-        ),
-    );
-  }
-}
 
 class ErgebnisAuswaehlen extends StatefulWidget {
   const ErgebnisAuswaehlen({Key? key}) : super(key: key);
