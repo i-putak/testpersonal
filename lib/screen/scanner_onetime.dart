@@ -14,6 +14,7 @@ import './termin_info_checker_screen.dart';
 import './invalid_termin_qr.dart';
 import '../models/appointment.dart';
 import '../models/user.dart';
+import '../models/kartusche.dart';
 
 Future<int> _createProbe(int terminId) async {
   var uri =
@@ -34,6 +35,10 @@ Future<int> _createProbe(int terminId) async {
     throw Exception('Probe konnte nicht angelegt werden');
   }
 }
+
+
+
+
 
 class QRViewExample extends StatefulWidget {
   QRViewExample({Key? key, required this.type}) : super(key: key);
@@ -162,12 +167,15 @@ class _QRViewExampleState extends State<QRViewExample> {
             }
           } else if (widget.type == 'Kartusche') {
             if (qrType[0] == 'K') {
+              loadKartusche(int.parse(qrType[1])).then((loadedKartusche) => {
               Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                      child: ErgebnisAuswaehlen(),
-                      type: PageTransitionType.rightToLeft),
-                  (route) => false);
+              context,
+              PageTransition(
+              child: ErgebnisAuswaehlen(loadedKartusche),
+              type: PageTransitionType.rightToLeft),
+              (route) => false)
+              });
+
             } else if (qrType[0] == 'P') {
               pop_up(context, 'P', 'Kartusche', 1, 1);
             } else if (qrType[0] == 'E') {
