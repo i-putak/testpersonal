@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import 'package:testpersonal/screen/ergebnis_eingeben.dart';
+import 'package:testpersonal/screen/retesting.dart';
 import 'package:testpersonal/screen/scanner_onetime.dart';
 import 'package:testpersonal/screen/scanner_multiple.dart';
-
-
+import 'package:testpersonal/screen/schedules.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,16 +21,35 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Testpersonal-Ansicht',
-        theme: ThemeData(
-            scaffoldBackgroundColor: const Color(0xFF020000)
-        ),
-        home: ListView(
-            padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
-            children: const <Widget>[
-              MyHomePage()
-            ]
-        )
-    );
+        theme: ThemeData.dark().copyWith(
+            primaryColor: Color.fromARGB(255, 104, 188, 228),
+            accentColor: Color.fromARGB(255, 202, 67, 57),
+            buttonTheme: ButtonTheme.of(context).copyWith(
+                buttonColor: Colors.lightBlueAccent,
+                textTheme: ButtonTextTheme.primary,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0))),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+              primary: Color.fromARGB(255, 104, 188, 228),
+              shadowColor: Color.fromARGB(255, 0, 174, 255),
+              elevation: 5,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0)),
+              minimumSize: Size(600, 90),
+              maximumSize: Size(600, 90),
+              textStyle: TextStyle(
+                  color: Colors.black,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500),
+            )),
+            textTheme: TextTheme(
+              displayMedium: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+              ),
+            )),
+        home: MyHomePage());
   }
 }
 
@@ -42,160 +61,99 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Scaffold(
+        body: Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          const SizedBox(height: 60),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(900, 100),
-              maximumSize: const Size(900, 100),
-              primary: Colors.lightBlueAccent,
-              shape : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-              ),
+          Container(
+            padding: EdgeInsets.only(top: 120),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      child: QRViewExample(type: 'Probe'),
+                      type: PageTransitionType.rightToLeft),
+                  // )
+                );
+              },
+              child: const Text('Neue Probe erstellen'),
             ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                    child: QRViewExample(),
-                    type: PageTransitionType.rightToLeft),
-                // )
-              );
-            },
-            child: const Text('Neue Probe anlegen'),
           ),
-          const SizedBox(height: 30),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(900, 100),
-              maximumSize: const Size(900, 100),
-              primary: Colors.lightBlueAccent,
-              shape : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-              ),
+          Container(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                        child: MultipleScanner(5, 'eNAT'),
+                        type: PageTransitionType.rightToLeft),
+                    (route) => false
+                    // )
+                    );
+              },
+              child: const Text('eNAT erstellen'),
             ),
+          ),
+          ElevatedButton(
             onPressed: () {
               Navigator.pushAndRemoveUntil(
-                context,
-                PageTransition(
-                    child: MultipleScanner(5, 'eNAT'),
-                    type: PageTransitionType.rightToLeft),
-                    (route) => false
-                // )
-              );
-            },
-            child: const Text('eNAT erstellen'),
-          ),
-          const SizedBox(height: 30),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(900, 100),
-              maximumSize: const Size(900, 100),
-              primary: Colors.lightBlueAccent,
-              shape : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                PageTransition(
-                    child: MultipleScanner(3, 'Kartusche'),
-                    type: PageTransitionType.rightToLeft),
-                    (route) => false
-                // )
-              );
+                  context,
+                  PageTransition(
+                      child: MultipleScanner(3, 'Kartusche'),
+                      type: PageTransitionType.rightToLeft),
+                  (route) => false
+                  // )
+                  );
             },
             child: const Text('Kartusche erstellen'),
           ),
-          const SizedBox(height: 30),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(900, 100),
-              maximumSize: const Size(900, 100),
-              primary: Colors.lightBlueAccent,
-              shape : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-            onPressed: () {
-              
-            },
-            child: const Text('Terminliste anzeigen'),
-          ),
-          const SizedBox(height: 30),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(900, 100),
-              maximumSize: const Size(900, 100),
-              primary: Colors.lightBlueAccent,
-              shape : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
-              ),
-              textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
                 PageTransition(
-                    child: const ErgebnisAuswaehlen(),
+                    child: QRViewExample(type: 'Kartusche'),
                     type: PageTransitionType.rightToLeft),
-                    (route) => false,
+                (route) => false,
                 // )
               );
             },
             child: const Text('Ergebnis eingeben'),
           ),
-          const SizedBox(height: 30),
           ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(900, 100),
-              maximumSize: const Size(900, 100),
-              primary: Colors.lightBlueAccent,
-              shape : RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                      child: const Retesting(),
+                      type: PageTransitionType.rightToLeft),
+                  (route) => false,
+                  // )
+                );
+              },
+              child: const Text('Retesting'),
+          ),
+          Container(
+              padding: EdgeInsets.only(bottom: 120),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                        child: ViewSchedule(),
+                        type: PageTransitionType.rightToLeft),
+                    // )
+                  );
+                },
+                child: const Text('Terminliste'),
               ),
-              textStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-            onPressed: () {},
-            child: const Text('eNAT für Retesting erstellen'),
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    ));
   }
 }
