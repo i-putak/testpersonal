@@ -11,7 +11,7 @@ class ViewSchedule extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: Text('Termineinübersicht',style: TextStyle(fontSize: 25)),
+        title: Text('Terminübersicht',style: TextStyle(fontSize: 25)),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +74,7 @@ class ViewSchedule extends StatelessWidget {
                     (route) => false
               );
              },
-            child: Text('Zum Startbildsachirm'),
+            child: Text('Zum Startbildschirm'),
           ),
         )
         
