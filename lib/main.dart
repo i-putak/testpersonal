@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:testpersonal/screen/ergebnis_eingeben.dart';
 import 'package:testpersonal/screen/retesting.dart';
 import 'package:testpersonal/screen/scanner_onetime.dart';
@@ -22,30 +22,35 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Testpersonal-Ansicht',
         theme: ThemeData.dark().copyWith(
-            primaryColor: Color.fromARGB(255, 104, 188, 228),
-            accentColor: Color.fromARGB(255, 202, 67, 57),
+            primaryColor: Color.fromARGB(255, 128, 214, 255),
+            //accentColor: Color.fromARGB(255, 202, 67, 57),
             buttonTheme: ButtonTheme.of(context).copyWith(
-                buttonColor: Colors.lightBlueAccent,
-                textTheme: ButtonTextTheme.primary,
+                textTheme: ButtonTextTheme.accent,
+                colorScheme: Theme.of(context)
+                    .colorScheme
+                    .copyWith(secondary: Color.fromARGB(255, 128, 214, 255)),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0))),
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ElevatedButton.styleFrom(
-              primary: Color.fromARGB(255, 104, 188, 228),
-              shadowColor: Color.fromARGB(255, 0, 174, 255),
+              primary: Color.fromARGB(255, 74, 74, 74),
               elevation: 5,
+              side: BorderSide(
+                color: Color.fromARGB(255, 128, 214, 255),
+                width: 3.0,
+              ),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)),
               minimumSize: Size(600, 90),
               maximumSize: Size(600, 90),
               textStyle: TextStyle(
-                  color: Colors.black,
+                  color: Color.fromARGB(255, 128, 214, 255),
                   fontSize: 30,
                   fontWeight: FontWeight.w500),
             )),
             textTheme: TextTheme(
               displayMedium: TextStyle(
-                color: Colors.white,
+                color: Color.fromARGB(255, 128, 214, 255),
                 fontSize: 20,
               ),
             )),
@@ -70,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 120),
-            child: ElevatedButton(
+            child: ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -80,11 +85,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   // )
                 );
               },
-              child: const Text('Neue Probe erstellen'),
+              icon: FaIcon(
+                // <-- Icon
+                FontAwesomeIcons.vial,
+                size: 38.0,
+                color: Color.fromARGB(255, 128, 214, 255),
+              ),
+              label: Text('Probe erstellen'), // <-- Text
             ),
           ),
           Container(
-            child: ElevatedButton(
+            child: ElevatedButton.icon(
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,
@@ -94,11 +105,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     (route) => false
                     // )
                     );
+                /* icon: Icon(Icons.save),  //icon data for elevated button
+                label: Text("Elevated Button with Icon"), */
               },
-              child: const Text('eNAT erstellen'),
+              icon: FaIcon(
+                  // <-- Icon
+                  FontAwesomeIcons.vials,
+                  size: 45.0,
+                  color: Color.fromARGB(255, 128, 214, 255)),
+              label: Text('eNAT erstellen'), // <-- Text
             ),
           ),
-          ElevatedButton(
+          ElevatedButton.icon(
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                   context,
@@ -109,9 +127,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   // )
                   );
             },
-            child: const Text('Kartusche erstellen'),
+            icon: Icon(
+                // <-- Icon
+                Icons.add_card,
+                size: 45.0,
+                color: Color.fromARGB(255, 128, 214, 255)),
+            label: Text('Kartusche erstellen'), // <-- Text
           ),
-          ElevatedButton(
+          ElevatedButton.icon(
             onPressed: () {
               Navigator.pushAndRemoveUntil(
                 context,
@@ -122,35 +145,50 @@ class _MyHomePageState extends State<MyHomePage> {
                 // )
               );
             },
-            child: const Text('Ergebnis eingeben'),
+            icon: Icon(
+                // <-- Icon
+                Icons.create_outlined,
+                size: 45.0,
+                color: Color.fromARGB(255, 128, 214, 255)),
+            label: Text('Ergebnis eingeben'), // <-- Text
           ),
-          ElevatedButton(
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                    child: const Retesting(),
+                    type: PageTransitionType.rightToLeft),
+                (route) => false,
+                // )
+              );
+            },
+            icon: Icon(
+                // <-- Icon
+                Icons.redo,
+                size: 45.0,
+                color: Color.fromARGB(255, 128, 214, 255)),
+            label: Text('Retesting'), // <-- Text
+          ),
+          Container(
+            padding: EdgeInsets.only(bottom: 120),
+            child: ElevatedButton.icon(
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
+                Navigator.push(
                   context,
                   PageTransition(
-                      child: const Retesting(),
+                      child: ViewSchedule(),
                       type: PageTransitionType.rightToLeft),
-                  (route) => false,
                   // )
                 );
               },
-              child: const Text('Retesting'),
-          ),
-          Container(
-              padding: EdgeInsets.only(bottom: 120),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    PageTransition(
-                        child: ViewSchedule(),
-                        type: PageTransitionType.rightToLeft),
-                    // )
-                  );
-                },
-                child: const Text('Terminliste'),
-              ),
+              icon: Icon(
+                  // <-- Icon
+                  Icons.calendar_month,
+                  size: 45.0,
+                  color: Color.fromARGB(255, 128, 214, 255)),
+              label: Text('Terminliste'), // <-- Text
+            ),
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
