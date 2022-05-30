@@ -91,7 +91,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 size: 38.0,
                 color: Color.fromARGB(255, 128, 214, 255),
               ),
-              label: Text('Probe erstellen'), // <-- Text
+              label: Text(
+                'Probe erstellen',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 128, 214, 255),
+                ),
+              ),
+              // <-- Text
             ),
           ),
           Container(
@@ -105,15 +111,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     (route) => false
                     // )
                     );
-                /* icon: Icon(Icons.save),  //icon data for elevated button
-                label: Text("Elevated Button with Icon"), */
               },
               icon: FaIcon(
                   // <-- Icon
                   FontAwesomeIcons.vials,
                   size: 45.0,
                   color: Color.fromARGB(255, 128, 214, 255)),
-              label: Text('eNAT erstellen'), // <-- Text
+              label: Text('eNAT erstellen',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 128, 214, 255),
+                  )), // <-- Text
             ),
           ),
           ElevatedButton.icon(
@@ -132,7 +139,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Icons.add_card,
                 size: 45.0,
                 color: Color.fromARGB(255, 128, 214, 255)),
-            label: Text('Kartusche erstellen'), // <-- Text
+            label: Text(
+              'Kartusche erstellen',
+              style: TextStyle(
+                color: Color.fromARGB(255, 128, 214, 255),
+              ),
+            ), // <-- Text
           ),
           ElevatedButton.icon(
             onPressed: () {
@@ -150,7 +162,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Icons.create_outlined,
                 size: 45.0,
                 color: Color.fromARGB(255, 128, 214, 255)),
-            label: Text('Ergebnis eingeben'), // <-- Text
+            label: Text(
+              'Ergebnis eingeben',
+              style: TextStyle(
+                color: Color.fromARGB(255, 128, 214, 255),
+              ),
+            ), // <-- Text
           ),
           ElevatedButton.icon(
             onPressed: () {
@@ -168,7 +185,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 Icons.redo,
                 size: 45.0,
                 color: Color.fromARGB(255, 128, 214, 255)),
-            label: Text('Retesting'), // <-- Text
+            label: Text(
+              'Retesting',
+              style: TextStyle(
+                color: Color.fromARGB(255, 128, 214, 255),
+              ),
+            ), // <-- Text
           ),
           Container(
             padding: EdgeInsets.only(bottom: 120),
@@ -187,7 +209,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   Icons.calendar_month,
                   size: 45.0,
                   color: Color.fromARGB(255, 128, 214, 255)),
-              label: Text('Terminliste'), // <-- Text
+              label: Text(
+                'Terminliste',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 128, 214, 255),
+                ),
+              ), // <-- Text
             ),
           ),
         ],
