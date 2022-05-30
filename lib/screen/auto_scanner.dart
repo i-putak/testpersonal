@@ -20,6 +20,7 @@ class Probe {
 }
 
 List<String> _probenIds = [];
+List<Color> _buttonColors = [];
 
 int zaehler = 0;
 
@@ -102,6 +103,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
 
   void probeDelete(index, probenIds){
     probenIds[index] = '';
+    _buttonColors[index] = Color.fromARGB(255, 74, 74, 74);
   }
 
   @override
@@ -110,7 +112,8 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
     if(_probenIds.isEmpty) {
       print('ProbenIds is empty');
       for(int k = 0; k < widget.amount; k++){
-      _probenIds.add('');
+        _probenIds.add('');
+        _buttonColors.add(Color.fromARGB(255, 74, 74, 74));
       } 
     }
 
@@ -120,13 +123,13 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
 
     if(widget.type == 'eNAT') {
       title = 'Neue eNAT anlegen';
-      component = 'Probe';
-      code = 'Proben-QR-Code';
+      component = 'Proben';
+      code = 'Proben-QR-Codes';
 
     } else if (widget.type == 'Kartusche') {
       title = 'Neue Kartusche erstellen';
       component = 'eNAT';
-      code = 'eNAT-QR-Code';
+      code = 'eNAT-QR-Codes';
     }
 
     return Scaffold(
@@ -141,53 +144,67 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.only(top: 40.0, left: 20, bottom: 40),
-            child: Text('Scannen Sie bitte den ' + '${code}' + ':',
+            margin: const EdgeInsets.only(top: 40.0, left: 20, bottom: 20),
+            child: Text('Scannen Sie bitte ' + '${code}' + ':',
               style: const TextStyle(
                 fontSize: 30,
                 color: Colors.white,
               )
             ),
           ),
-          Expanded(flex: 4, child: _buildQrView(context)),
+          Container(
+            padding: EdgeInsets.only(bottom: 20),
+            child: Text('Um einen QR-Code erneut zu testen, klicken Sie auf seinen Button.',
+                        style: TextStyle(
+                          fontSize: 25 ))
+          ),
+          Expanded(flex: 9, child: _buildQrView(context)),
           const Expanded(
             flex: 1,
             child: FittedBox(
               fit: BoxFit.contain,
-              
             ),
           ),
+          
           Container(
             padding: EdgeInsets.only(bottom: 20),
-            child: Row(children: [
-              for(int i = 0; i < widget.amount; i++)
-              
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(200,50),
-                        maximumSize: Size(200,50),
-                        primary: Colors.blue,
-                        shadowColor: Theme.of(context).accentColor,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Wrap(
+                children: [
+                for(int i = 0; i < widget.amount; i++)
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(200,50),
+                          maximumSize: Size(200,50),
+                          primary: _buttonColors[i],
+                          shadowColor: Theme.of(context).primaryColor,
+                        ),
+                        child: Text('${component}-ID: ' + '${_probenIds[i]}' ,
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w500,
+                        )),
+                        onPressed: () {
+                          setState(() {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => pop_up(context, 'K', 'eNAT', widget.amount, zaehler),
+                            );
+                            probeDelete(i, _probenIds);
+                            zaehler=i;
+                            controller?.resumeCamera();
+
+                          });
+                        },
                       ),
-                      child: Text('${component}-ID: ' + '${_probenIds[i]}' ,
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                      )),
-                      onPressed: () {
-                        setState(() {
-                          probeDelete(i, _probenIds);
-                          zaehler=i;
-                          controller?.resumeCamera();
-
-                        });
-                      },
                     ),
-                  ),
+                    
 
-            ],
+              ],
+              ),
             ),
           ),
           Container(
@@ -200,13 +217,11 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                       ),
                       child: Text('Kartusche erstellen' ,
                       style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromARGB(255, 128, 214, 255),
                       )),
                       onPressed: () {
-                        for(int g = widget.amount-1; g >= 0; g--) {
-                        _probenIds.remove(_probenIds[g]);
-                      }
 
                       zaehler = 0;
                       
@@ -214,6 +229,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                         _createEnattest(int.parse(_probenIds[0]), int.parse(_probenIds[1]), int.parse(_probenIds[2]), int.parse(_probenIds[3]), int.parse(_probenIds[4])).then((enattestId) {
                           for(int g = widget.amount-1; g >= 0; g--) {
                             _probenIds.remove(_probenIds[g]);
+                            _buttonColors.remove(_buttonColors[g]);
                           }
                           Navigator.pushAndRemoveUntil(
                             context,
@@ -228,6 +244,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                         _createPooltest(int.parse(_probenIds[0]), int.parse(_probenIds[1]), int.parse(_probenIds[2])).then((pooltestId) {
                           for(int g = widget.amount-1; g >= 0; g--) {
                             _probenIds.remove(_probenIds[g]);
+                            _buttonColors.remove(_buttonColors[g]);
                           }
                           Navigator.pushAndRemoveUntil(
                             context,
@@ -247,19 +264,19 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(700,70),
                         maximumSize: Size(700,70),
-                        primary: Color.fromARGB(255, 207, 207, 207),
-                        onPrimary: Colors.black,
                         shadowColor: Theme.of(context).accentColor,
+                        side: BorderSide(width: 3.0, color: Colors.white,)
                       ),
                       child: Text('Abbrechen' ,
                       style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
                       )),
                       onPressed: () {
                         for(int g = widget.amount-1; g >= 0; g--) {
-                        _probenIds.remove(_probenIds[g]);
-                      }
+                          _probenIds.remove(_probenIds[g]);
+                          _buttonColors.remove(_buttonColors[g]);
+                        }
 
                       zaehler = 0;
                       
@@ -320,9 +337,11 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
             if(qrType[0] == 'P'){
               
               _probenIds[zaehler] = qrType[1].toString();
+              _buttonColors[zaehler] =  Color.fromARGB(255, 128, 214, 255);
 
               sleep(const Duration(seconds: 3));
               zaehler++;
+              
               controller.resumeCamera();
 
             } else if(qrType[0] == 'K'){
@@ -347,6 +366,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
             if(qrType[0] == 'E'){
               controller.pauseCamera();
               _probenIds[zaehler] = qrType[1].toString();
+              _buttonColors[zaehler] = Color.fromARGB(255, 128, 214, 255);
 
               sleep(const Duration(seconds: 5));
               zaehler++;

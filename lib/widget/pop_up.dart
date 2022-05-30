@@ -73,44 +73,39 @@ Widget pop_up(BuildContext context, String scanned, String type, int amount, int
       ElevatedButton(
         onPressed: () {
           if (type == 'Kartusche') {
-            Navigator.pushAndRemoveUntil(
+            Navigator.pop(
                   context,
                   PageTransition(
                       child: QRViewExample(type: 'Kartusche'),
-                      type: PageTransitionType.bottomToTop),
-                      (route) => false
+                      type: PageTransitionType.bottomToTop)
               );
           } else if (type == 'eNAT') {
-            Navigator.pushAndRemoveUntil(
+            Navigator.pop(
                   context,
                   PageTransition(
                       child: QrMultiScanner(index: index, type: 'Kartusche', amount: amount),
                       type: PageTransitionType.bottomToTop),
-                      (route) => false
               );
           } else if (type == 'Probe') {
-            Navigator.pushAndRemoveUntil(
+            Navigator.pop(
                   context,
                   PageTransition(
                       child: QrMultiScanner(index: index, type: 'eNAT', amount: amount),
                       type: PageTransitionType.bottomToTop),
-                      (route) => false
               );
           } else if (type == 'Termin') {
-            Navigator.pushAndRemoveUntil(
+            Navigator.pop(
                   context,
                   PageTransition(
                       child: QRViewExample(type: 'Probe'),
                       type: PageTransitionType.bottomToTop),
-                      (route) => false
               );
           } else if (type == 'Retest') {
-            Navigator.pushAndRemoveUntil(
+            Navigator.pop(
                   context,
                   PageTransition(
                       child: QRViewExample(type: 'Retest'),
                       type: PageTransitionType.bottomToTop),
-                      (route) => false
               );
           }
         },
