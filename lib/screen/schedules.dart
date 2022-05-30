@@ -29,7 +29,7 @@ Future<void> _getAlleTermine() async {
           DateFormat('dd.MM.yyyy').format(DateTime.parse(data[i]['datum'])),
           DateFormat('HH:mm').format(DateTime.parse(data[i]['datum'])),
           data[i]['anzahlGebuchtePlaetze']));
-      print('Durchlauf Nr:'+i.toString());
+      print('Durchlauf Nr:' + i.toString());
     }
     print(loadedTerminslots);
   } else {
@@ -78,11 +78,11 @@ class ViewSchedule extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.only(top: 100, bottom: 30),
+                padding: EdgeInsets.only(top: 10, bottom: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    /*Container(
                         padding: EdgeInsets.only(left: 80),
                         child: Text(
                           'Terminslot',
@@ -90,15 +90,15 @@ class ViewSchedule extends StatelessWidget {
                               fontSize: 27,
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).primaryColor),
-                        )),
-                    Container(
+                        )),*/
+                    /*Container(
                         padding: EdgeInsets.only(right: 80),
                         child: Text('Anzahl der \ngebuchten Plätze',
                             style: TextStyle(
                                 fontSize: 27,
                                 fontWeight: FontWeight.bold,
                                 color: Theme.of(context).primaryColor),
-                            textAlign: TextAlign.right)),
+                            textAlign: TextAlign.right)),*/
                   ],
                 ),
               ),
@@ -113,21 +113,28 @@ class ViewSchedule extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Row(
                           children: [
-                            Text(loadedTerminslots[index].datum,style: TextStyle(
-                                fontSize: 27,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColor),),
-                            Text(loadedTerminslots[index].zeitslot,style: TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor),),
-                            Text(loadedTerminslots[index].anzahl.toString(),style: TextStyle(
-                        fontSize: 27,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor),),
+                            Text(
+                              loadedTerminslots[index].datum+', ',
+                              style: TextStyle(
+                                  fontSize: 27,
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                            Text(
+                              loadedTerminslots[index].zeitslot+' Uhr, ',
+                              style: TextStyle(
+                                  fontSize: 27,
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                            Text(
+                              'Anzahl gebuchte Plätze: '+loadedTerminslots[index].anzahl.toString(),
+                              style: TextStyle(
+                                  fontSize: 27,
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).primaryColor),
+                            ),
                           ],
-
-
                         );
                       },
                     );
