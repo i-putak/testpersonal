@@ -71,9 +71,9 @@ class TerminInfoChecker extends StatelessWidget {
                   ),
                   Container(
                       padding: EdgeInsets.only(
-                          left: 60, top: 20, bottom: 200, right: 60),
+                          left: 60, top: 20, bottom: 120, right: 60),
                       child: const Text(
-                          'Überprüfen Sie bitte die Teilnehmerdaten anhand eines Lichbildausweises:',
+                          'Überprüfen Sie bitte die Daten anhand eines Lichtbildausweises:',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 28,
@@ -87,20 +87,32 @@ class TerminInfoChecker extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
-                          Text("Termin ID:  ", style: TextStyle(fontSize: 28)),
-                          Text("Name: ", style: TextStyle(fontSize: 28)),
-                          Text("Vorname:  ", style: TextStyle(fontSize: 28)),
+                          Text("Name: ",
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  color: Color.fromARGB(255, 217, 217, 217))),
+                          Text("Vorname:  ",
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  color: Color.fromARGB(255, 217, 217, 217))),
                           Text("Geburtsdatum: ",
-                              style: TextStyle(fontSize: 28)),
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  color: Color.fromARGB(255, 217, 217, 217))),
                           Text(
                             "Email:  ",
                             style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                fontSize: 28,
+                                color: Color.fromARGB(255, 217, 217, 217)),
                           ),
-                          Text("Tel.-Nr:  ", style: TextStyle(fontSize: 28)),
-                          Text("Klasse: ", style: TextStyle(fontSize: 28)),
+                          Text("Tel.-Nr:  ",
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  color: Color.fromARGB(255, 217, 217, 217))),
+                          Text("Klasse: ",
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  color: Color.fromARGB(255, 217, 217, 217))),
                         ],
                       ),
                       const Spacer(
@@ -109,18 +121,37 @@ class TerminInfoChecker extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("${appointment.appointmentId}",
-                              style: TextStyle(fontSize: 28)),
-                          Text(user.name, style: TextStyle(fontSize: 28)),
-                          Text(user.vorname, style: TextStyle(fontSize: 28)),
+                          Text(user.name,
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Text(user.vorname,
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              )),
                           Text(
                               DateFormat('dd.MM.yyyy')
                                   .format(user.geburtsdatum),
-                              style: TextStyle(fontSize: 28)),
-                          Text(user.email, style: TextStyle(fontSize: 28)),
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Text(
+                            user.email,
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           Text(user.telefonnummer,
                               style: TextStyle(fontSize: 28)),
-                          Text(user.klasse, style: TextStyle(fontSize: 28)),
+                          Text(user.klasse,
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              )),
                         ],
                       ),
                       const Spacer(
