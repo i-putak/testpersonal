@@ -36,10 +36,6 @@ Future<int> _createProbe(int terminId) async {
   }
 }
 
-
-
-
-
 class QRViewExample extends StatefulWidget {
   QRViewExample({Key? key, required this.type}) : super(key: key);
 
@@ -74,7 +70,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     } else if (widget.type == 'Kartusche') {
       title = 'Ergebnis eingeben';
       text = 'Scannen Sie bitte den Kartuschen- oder Retest-QR-Code';
-    } 
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -168,14 +164,13 @@ class _QRViewExampleState extends State<QRViewExample> {
           } else if (widget.type == 'Kartusche') {
             if (qrType[0] == 'K') {
               loadKartusche(int.parse(qrType[1])).then((loadedKartusche) => {
-              Navigator.pushAndRemoveUntil(
-              context,
-              PageTransition(
-              child: ErgebnisAuswaehlen(loadedKartusche),
-              type: PageTransitionType.rightToLeft),
-              (route) => false)
-              });
-
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        PageTransition(
+                            child: ErgebnisAuswaehlen(loadedKartusche),
+                            type: PageTransitionType.rightToLeft),
+                        (route) => false)
+                  });
             } else if (qrType[0] == 'P') {
               pop_up(context, 'P', 'Kartusche', 1, 1);
             } else if (qrType[0] == 'E') {
@@ -183,7 +178,7 @@ class _QRViewExampleState extends State<QRViewExample> {
             } else if (qrType[0] == 'T') {
               pop_up(context, 'T', 'Kartusche', 1, 1);
             }
-          } 
+          }
         } else {
           controller.pauseCamera();
           Navigator.pushAndRemoveUntil(
