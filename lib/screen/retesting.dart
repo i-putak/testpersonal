@@ -101,7 +101,7 @@ class _RetestingState extends State<Retesting> {
       children: values.keys.map((int key) {
         return RadioListTile<int>(
             title: Text('eNAT-ID: ' + '${key}',
-                style: const TextStyle(fontSize: 27, color: Colors.white)),
+                style: const TextStyle(fontSize: 27)),
             activeColor: Theme.of(context).primaryColor,
             value: values[key] ?? _selected,
             groupValue: _selected,

@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:testpersonal/screen/ergebnis_eingeben.dart';
 import 'package:testpersonal/screen/retesting.dart';
 import 'package:testpersonal/screen/scanner_onetime.dart';
-import 'package:testpersonal/screen/scanner_multiple.dart';
+import 'package:testpersonal/screen/auto_scanner.dart';
 import 'package:testpersonal/screen/schedules.dart';
 
 void main() {
@@ -100,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushAndRemoveUntil(
                     context,
                     PageTransition(
-                        child: MultipleScanner(5, 'eNAT'),
+                        child: QrMultiScanner(type: 'eNAT', amount: 5),
                         type: PageTransitionType.rightToLeft),
                     (route) => false
                     // )
@@ -121,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(
-                      child: MultipleScanner(3, 'Kartusche'),
+                      child: QrMultiScanner(type: 'Kartusche', amount: 3),
                       type: PageTransitionType.rightToLeft),
                   (route) => false
                   // )
