@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import '../main.dart';
-import './retesting.dart';
 import 'package:http/http.dart' as http;
 
 List<LoadedTerminslot> loadedTerminslots = [];
@@ -111,31 +110,38 @@ class ViewSchedule extends StatelessWidget {
                       shrinkWrap: true,
                       itemCount: loadedTerminslots.length,
                       itemBuilder: (context, index) {
-                        return Row(
+                        return Column(
                           children: [
-                            Text(
-                              loadedTerminslots[index].datum+', ',
-                              style: TextStyle(
-                                  fontSize: 27,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).primaryColor),
-                            ),
-                            Text(
-                              loadedTerminslots[index].zeitslot+' Uhr, ',
-                              style: TextStyle(
-                                  fontSize: 27,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).primaryColor),
-                            ),
-                            Text(
-                              'Anzahl gebuchte Plätze: '+loadedTerminslots[index].anzahl.toString(),
-                              style: TextStyle(
-                                  fontSize: 27,
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).primaryColor),
+                            SizedBox(height: 10)
+                            ,Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                  loadedTerminslots[index].datum+' ',
+                                  style: TextStyle(
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).primaryColor),
+                                ),
+                                Text(
+                                  loadedTerminslots[index].zeitslot+' Uhr',
+                                  style: TextStyle(
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).primaryColor),
+                                ),
+                                Text(
+                                  'Anzahl gebuchte Plätze: '+loadedTerminslots[index].anzahl.toString(),
+                                  style: TextStyle(
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).primaryColor),
+                                ),
+                              ],
                             ),
                           ],
                         );
+
                       },
                     );
                   } else {
