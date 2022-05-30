@@ -77,7 +77,7 @@ class ViewSchedule extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              /*Container(
                 padding: EdgeInsets.only(top: 10, bottom: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,8 +90,8 @@ class ViewSchedule extends StatelessWidget {
                               fontSize: 27,
                               fontWeight: FontWeight.bold,
                               color: Theme.of(context).primaryColor),
-                        )),*/
-                    /*Container(
+                        )),
+                    Container(
                         padding: EdgeInsets.only(right: 80),
                         child: Text('Anzahl der \ngebuchten Plätze',
                             style: TextStyle(
@@ -101,7 +101,7 @@ class ViewSchedule extends StatelessWidget {
                             textAlign: TextAlign.right)),*/
                   ],
                 ),
-              ),
+              ),*/
               FutureBuilder(
                 future: _getAlleTermine(),
                 builder: (BuildContext context, snapshot) {
