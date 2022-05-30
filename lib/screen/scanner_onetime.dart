@@ -63,13 +63,16 @@ class _QRViewExampleState extends State<QRViewExample> {
   Widget build(BuildContext context) {
     String title = '';
     String text = '';
+    String text2 = '';
 
     if (widget.type == 'Probe') {
       title = 'Neue Probe anlegen';
-      text = 'Scannen Sie bitte den Termin-QR-Code';
+      text = 'Scannen Sie bitte den';
+      text2 = 'Termin-QR-Code.';
     } else if (widget.type == 'Kartusche') {
       title = 'Ergebnis eingeben';
-      text = 'Scannen Sie bitte den Kartuschen- oder Retest-QR-Code';
+      text = 'Scannen Sie bitte den';
+      text2 = 'Kartuschen- oder Retest-QR-Code.';
     }
 
     return Scaffold(
@@ -85,13 +88,25 @@ class _QRViewExampleState extends State<QRViewExample> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(top: 40.0, left: 20, bottom: 40),
-            child: Text('${text}',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.white,
-                )),
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 40.0, left: 20, bottom: 40),
+                child: Text('${text}',
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                    )),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 40.0, left: 10, bottom: 40),
+                  child: Text('${text2}',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 128, 214, 255),
+                      ))),
+            ],
           ),
           Expanded(flex: 4, child: _buildQrView(context)),
           Expanded(

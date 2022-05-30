@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 import './invalid_termin_qr.dart';
 import 'qr_generator_screen.dart';
 import '../widget/pop_up.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //Probe wird nicht benutzt
 class Probe {
@@ -24,8 +25,19 @@ List<Color> _buttonColors = [];
 
 int zaehler = 0;
 
-Future <int> _createEnattest(int probenId1, int probenId2, int probenId3, int probenId4, int probenId5) async{
-  var url = "http://10.0.2.2:8080/api/createEnattest/" + probenId1.toString() + "/" + probenId2.toString() + "/" + probenId3.toString() + "/" + probenId4.toString() + "/" + probenId5.toString() + "/";
+Future<int> _createEnattest(int probenId1, int probenId2, int probenId3,
+    int probenId4, int probenId5) async {
+  var url = "http://10.0.2.2:8080/api/createEnattest/" +
+      probenId1.toString() +
+      "/" +
+      probenId2.toString() +
+      "/" +
+      probenId3.toString() +
+      "/" +
+      probenId4.toString() +
+      "/" +
+      probenId5.toString() +
+      "/";
 
   http.Response response = await http.post(
     Uri.parse(url),
@@ -48,8 +60,14 @@ Future <int> _createEnattest(int probenId1, int probenId2, int probenId3, int pr
   }
 }
 
-Future <int> _createPooltest(int enattestId1, int enattestId2, int enattestId3) async{
-  var url = "http://10.0.2.2:8080/api/createPooltest/" + enattestId1.toString() + "/" + enattestId2.toString() + "/" + enattestId3.toString();
+Future<int> _createPooltest(
+    int enattestId1, int enattestId2, int enattestId3) async {
+  var url = "http://10.0.2.2:8080/api/createPooltest/" +
+      enattestId1.toString() +
+      "/" +
+      enattestId2.toString() +
+      "/" +
+      enattestId3.toString();
 
   http.Response response = await http.post(
     Uri.parse(url),
@@ -70,18 +88,12 @@ Future <int> _createPooltest(int enattestId1, int enattestId2, int enattestId3) 
   }
 }
 
-
-
-
-
 class QrMultiScanner extends StatefulWidget {
-  QrMultiScanner({Key? key, required this.type, required this.amount}) : super(key: key);
+  QrMultiScanner({Key? key, required this.type, required this.amount})
+      : super(key: key);
 
-  
   String type;
   int amount;
-
-
 
   @override
   State<StatefulWidget> createState() => _QrMultiScannerState();
@@ -91,7 +103,7 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  
+
   @override
   void reassemble() {
     super.reassemble();
@@ -101,31 +113,29 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
     controller!.resumeCamera();
   }
 
-  void probeDelete(index, probenIds){
+  void probeDelete(index, probenIds) {
     probenIds[index] = '';
     _buttonColors[index] = Color.fromARGB(255, 74, 74, 74);
   }
 
   @override
   Widget build(BuildContext context) {
-
-    if(_probenIds.isEmpty) {
+    if (_probenIds.isEmpty) {
       print('ProbenIds is empty');
-      for(int k = 0; k < widget.amount; k++){
+      for (int k = 0; k < widget.amount; k++) {
         _probenIds.add('');
         _buttonColors.add(Color.fromARGB(255, 74, 74, 74));
-      } 
+      }
     }
 
     String title = '';
     String component = '';
     String code = '';
 
-    if(widget.type == 'eNAT') {
+    if (widget.type == 'eNAT') {
       title = 'Neue eNAT anlegen';
       component = 'Proben';
       code = 'Proben-QR-Codes';
-
     } else if (widget.type == 'Kartusche') {
       title = 'Neue Kartusche erstellen';
       component = 'eNAT';
@@ -135,8 +145,11 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: Text('${title}', 
-          style: TextStyle(fontSize: 25,),
+        title: Text(
+          '${title}',
+          style: TextStyle(
+            fontSize: 25,
+          ),
         ),
       ),
       body: Column(
@@ -145,18 +158,29 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
         children: <Widget>[
           Container(
             margin: const EdgeInsets.only(top: 40.0, left: 20, bottom: 20),
-            child: Text('Scannen Sie bitte ' + '${code}' + ':',
-              style: const TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-              )
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(bottom: 20),
-            child: Text('Um einen QR-Code erneut zu testen, klicken Sie auf seinen Button.',
-                        style: TextStyle(
-                          fontSize: 25 ))
+            child: RichText(
+                text: TextSpan(
+                    // style: DefaultTextStyle.of(context).style,
+                    children: <TextSpan>[
+                  TextSpan(
+                      text: 'Scannen Sie bitte die ',
+                      style: TextStyle(
+                        fontSize: 25,
+                      )),
+                  TextSpan(
+                      text: '${code}',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
+                          color: Color.fromARGB(255, 128, 214, 255))),
+                  TextSpan(text: '.', style: TextStyle(fontSize: 20)),
+                ])
+                /*,'Scannen Sie bitte die ' + '${code}' + ':',
+                style: const TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                )*/
+                ),
           ),
           Expanded(flex: 9, child: _buildQrView(context)),
           const Expanded(
@@ -165,135 +189,139 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
               fit: BoxFit.contain,
             ),
           ),
-          
+          Container(
+              padding: EdgeInsets.only(bottom: 20),
+              child: Text(
+                  'Um einen QR-Code erneut zu scannen,  \n klicken Sie auf den jeweiligen Button.',
+                  style: TextStyle(fontSize: 25))),
           Container(
             padding: EdgeInsets.only(bottom: 20),
             child: Align(
               alignment: Alignment.topCenter,
               child: Wrap(
                 children: [
-                for(int i = 0; i < widget.amount; i++)
+                  for (int i = 0; i < widget.amount; i++)
                     Container(
                       padding: EdgeInsets.all(10),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(200,50),
-                          maximumSize: Size(200,50),
+                          minimumSize: Size(200, 50),
+                          maximumSize: Size(200, 50),
                           primary: _buttonColors[i],
                           shadowColor: Theme.of(context).primaryColor,
                         ),
-                        child: Text('${component}-ID: ' + '${_probenIds[i]}' ,
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                        )),
+                        child: Text('${component}-ID: ' + '${_probenIds[i]}',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w500,
+                            )),
                         onPressed: () {
                           setState(() {
                             showDialog(
                               context: context,
-                              builder: (BuildContext context) => pop_up(context, 'K', 'eNAT', widget.amount, zaehler),
+                              builder: (BuildContext context) => pop_up(
+                                  context, 'K', 'eNAT', widget.amount, zaehler),
                             );
                             probeDelete(i, _probenIds);
-                            zaehler=i;
+                            zaehler = i;
                             controller?.resumeCamera();
-
                           });
                         },
                       ),
                     ),
-                    
-
-              ],
+                ],
               ),
             ),
           ),
           Container(
-                    padding: EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(700,70),
-                        maximumSize: Size(700,70),
-                        shadowColor: Theme.of(context).accentColor,
-                      ),
-                      child: Text('Kartusche erstellen' ,
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w600,
-                        color: Color.fromARGB(255, 128, 214, 255),
-                      )),
-                      onPressed: () {
+            padding: EdgeInsets.all(10),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(700, 70),
+                maximumSize: Size(700, 70),
+                shadowColor: Theme.of(context).accentColor,
+              ),
+              child: Text('Kartusche erstellen',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                    color: Color.fromARGB(255, 128, 214, 255),
+                  )),
+              onPressed: () {
+                zaehler = 0;
 
-                      zaehler = 0;
-                      
-                      if(widget.type == 'eNAT') {
-                        _createEnattest(int.parse(_probenIds[0]), int.parse(_probenIds[1]), int.parse(_probenIds[2]), int.parse(_probenIds[3]), int.parse(_probenIds[4])).then((enattestId) {
-                          for(int g = widget.amount-1; g >= 0; g--) {
-                            _probenIds.remove(_probenIds[g]);
-                            _buttonColors.remove(_buttonColors[g]);
-                          }
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            PageTransition(
-                              child: QrGenerator(id: enattestId, type: 'eNAT'),
-                              type: PageTransitionType.rightToLeft),
-                              (route) => false
-                          );
-                        });
-                        
-                      } else if (widget.type == 'Kartusche') {
-                        _createPooltest(int.parse(_probenIds[0]), int.parse(_probenIds[1]), int.parse(_probenIds[2])).then((pooltestId) {
-                          for(int g = widget.amount-1; g >= 0; g--) {
-                            _probenIds.remove(_probenIds[g]);
-                            _buttonColors.remove(_buttonColors[g]);
-                          }
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            PageTransition(
-                              child: QrGenerator(id: pooltestId, type: 'Kartusche'),
-                              type: PageTransitionType.rightToLeft),
-                              (route) => false
-                          );
-                        });
-                      }
-                      },
-                    ),
-                  ),
-          Container(
-                    padding: EdgeInsets.all(10),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(700,70),
-                        maximumSize: Size(700,70),
-                        shadowColor: Theme.of(context).accentColor,
-                        side: BorderSide(width: 3.0, color: Colors.white,)
-                      ),
-                      child: Text('Abbrechen' ,
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w600,
-                      )),
-                      onPressed: () {
-                        for(int g = widget.amount-1; g >= 0; g--) {
-                          _probenIds.remove(_probenIds[g]);
-                          _buttonColors.remove(_buttonColors[g]);
-                        }
-
-                      zaehler = 0;
-                      
-                      Navigator.pushAndRemoveUntil(
+                if (widget.type == 'eNAT') {
+                  _createEnattest(
+                          int.parse(_probenIds[0]),
+                          int.parse(_probenIds[1]),
+                          int.parse(_probenIds[2]),
+                          int.parse(_probenIds[3]),
+                          int.parse(_probenIds[4]))
+                      .then((enattestId) {
+                    for (int g = widget.amount - 1; g >= 0; g--) {
+                      _probenIds.remove(_probenIds[g]);
+                      _buttonColors.remove(_buttonColors[g]);
+                    }
+                    Navigator.pushAndRemoveUntil(
                         context,
                         PageTransition(
-                          child: MyHomePage(),
-                          type: PageTransitionType.leftToRight),
-                          (route) => false
-                      );
-                      },
-                    ),
-                  ),
-           
-                
-                
-              
+                            child: QrGenerator(id: enattestId, type: 'eNAT'),
+                            type: PageTransitionType.rightToLeft),
+                        (route) => false);
+                  });
+                } else if (widget.type == 'Kartusche') {
+                  _createPooltest(int.parse(_probenIds[0]),
+                          int.parse(_probenIds[1]), int.parse(_probenIds[2]))
+                      .then((pooltestId) {
+                    for (int g = widget.amount - 1; g >= 0; g--) {
+                      _probenIds.remove(_probenIds[g]);
+                      _buttonColors.remove(_buttonColors[g]);
+                    }
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        PageTransition(
+                            child:
+                                QrGenerator(id: pooltestId, type: 'Kartusche'),
+                            type: PageTransitionType.rightToLeft),
+                        (route) => false);
+                  });
+                }
+              },
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(10),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: Size(700, 70),
+                  maximumSize: Size(700, 70),
+                  shadowColor: Theme.of(context).accentColor,
+                  side: BorderSide(
+                    width: 3.0,
+                    color: Colors.white,
+                  )),
+              child: Text('Abbrechen',
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                  )),
+              onPressed: () {
+                for (int g = widget.amount - 1; g >= 0; g--) {
+                  _probenIds.remove(_probenIds[g]);
+                  _buttonColors.remove(_buttonColors[g]);
+                }
+
+                zaehler = 0;
+
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    PageTransition(
+                        child: MyHomePage(),
+                        type: PageTransitionType.leftToRight),
+                    (route) => false);
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -328,42 +356,40 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
       setState(() {
         result = scanData;
         var qrType = result!.code.toString().split('_');
-        if(result != null && result!.code != null) {
+        if (result != null && result!.code != null) {
           //globale var, für später
           controller.pauseCamera();
-          
 
-          if(widget.type == 'eNAT'){
-            if(qrType[0] == 'P'){
-              
+          if (widget.type == 'eNAT') {
+            if (qrType[0] == 'P') {
               _probenIds[zaehler] = qrType[1].toString();
-              _buttonColors[zaehler] =  Color.fromARGB(255, 128, 214, 255);
+              _buttonColors[zaehler] = Color.fromARGB(255, 128, 214, 255);
 
               sleep(const Duration(seconds: 3));
               zaehler++;
-              
-              controller.resumeCamera();
 
-            } else if(qrType[0] == 'K'){
+              controller.resumeCamera();
+            } else if (qrType[0] == 'K') {
               showDialog(
                 context: context,
-                builder: (BuildContext context) => pop_up(context, 'K', 'Probe', widget.amount, zaehler),
+                builder: (BuildContext context) =>
+                    pop_up(context, 'K', 'Probe', widget.amount, zaehler),
               );
-              
-            }else if(qrType[0] == 'E'){
+            } else if (qrType[0] == 'E') {
               showDialog(
                 context: context,
-                builder: (BuildContext context) => pop_up(context, 'E', 'Probe', widget.amount, zaehler),
+                builder: (BuildContext context) =>
+                    pop_up(context, 'E', 'Probe', widget.amount, zaehler),
               );
-              
-            }else if(qrType[0] == 'T'){
+            } else if (qrType[0] == 'T') {
               showDialog(
                 context: context,
-                builder: (BuildContext context) => pop_up(context, 'T', 'Probe', widget.amount, zaehler),
+                builder: (BuildContext context) =>
+                    pop_up(context, 'T', 'Probe', widget.amount, zaehler),
               );
             }
-          } else if(widget.type == 'Kartusche'){
-            if(qrType[0] == 'E'){
+          } else if (widget.type == 'Kartusche') {
+            if (qrType[0] == 'E') {
               controller.pauseCamera();
               _probenIds[zaehler] = qrType[1].toString();
               _buttonColors[zaehler] = Color.fromARGB(255, 128, 214, 255);
@@ -371,38 +397,37 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
               sleep(const Duration(seconds: 5));
               zaehler++;
               controller.resumeCamera();
-
-              
-            }else if(qrType[0] == 'K'){
+            } else if (qrType[0] == 'K') {
               showDialog(
                 context: context,
-                builder: (BuildContext context) => pop_up(context, 'K', 'eNAT', widget.amount, zaehler),
+                builder: (BuildContext context) =>
+                    pop_up(context, 'K', 'eNAT', widget.amount, zaehler),
               );
-            }else if(qrType[0] == 'P'){
+            } else if (qrType[0] == 'P') {
               showDialog(
                 context: context,
-                builder: (BuildContext context) => pop_up(context, 'P', 'eNAT', widget.amount, zaehler),
+                builder: (BuildContext context) =>
+                    pop_up(context, 'P', 'eNAT', widget.amount, zaehler),
               );
-            }else if(qrType[0] == 'T'){
+            } else if (qrType[0] == 'T') {
               showDialog(
                 context: context,
-                builder: (BuildContext context) => pop_up(context, 'T', 'eNAT', widget.amount, zaehler),
+                builder: (BuildContext context) =>
+                    pop_up(context, 'T', 'eNAT', widget.amount, zaehler),
               );
             }
           }
         } else {
           controller.pauseCamera();
           Navigator.push(
-                context,
-                PageTransition(
-                    child: InvalidTerminQr(),
-                    type: PageTransitionType.rightToLeft),
+            context,
+            PageTransition(
+                child: InvalidTerminQr(), type: PageTransitionType.rightToLeft),
           );
         }
       });
     });
   }
-
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
     log('${DateTime.now().toIso8601String()}_onPermissionSet $p');
@@ -419,5 +444,3 @@ class _QrMultiScannerState extends State<QrMultiScanner> {
     super.dispose();
   }
 }
-
-

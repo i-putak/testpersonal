@@ -146,7 +146,10 @@ class TerminInfoChecker extends StatelessWidget {
                             ),
                           ),
                           Text(user.telefonnummer,
-                              style: TextStyle(fontSize: 28)),
+                              style: TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              )),
                           Text(user.klasse,
                               style: TextStyle(
                                 fontSize: 28,
@@ -167,7 +170,6 @@ class TerminInfoChecker extends StatelessWidget {
                     padding: EdgeInsets.only(
                         left: 30, right: 30, top: 20, bottom: 10),
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(),
                         onPressed: () {
                           _createProbe(appointment.appointmentId)
                               .then((fetechedProbenId) => {
@@ -184,15 +186,16 @@ class TerminInfoChecker extends StatelessWidget {
                                         )
                                   });
                         },
+                        style: ElevatedButton.styleFrom(
+                            //textStyle: TextStyle(color: Colors.black)
+                            ),
                         child: Text('Bestätigen')),
                   ),
                   Container(
                     padding: EdgeInsets.only(
                         left: 30, right: 30, top: 10, bottom: 50),
                     child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 228, 227, 227),
-                        ),
+                        style: ElevatedButton.styleFrom(),
                         onPressed: () {
                           Navigator.pushAndRemoveUntil(
                               context,
@@ -203,7 +206,7 @@ class TerminInfoChecker extends StatelessWidget {
                         },
                         child: Text('Abbrechen',
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Color.fromARGB(255, 217, 217, 217),
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold))),
                   ),
